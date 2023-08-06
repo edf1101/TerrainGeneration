@@ -13,7 +13,8 @@ I couldnt find any large scale terrain generation projects / tutorials that were
 ### Future
 I plan to implement this into a 2nd version of my ecosystem simulation though slightly less focused on evolution and instead just having infinite terrain with animals populating it.
 
-### Credits
+### Credits / References
 - https://github.com/wo80/Triangle.NET
 - https://github.com/Auburn/FastNoiseLite
-- https://gist.github.com/a3geek/8532817159b77c727040cf67c92af322 
+- https://gist.github.com/a3geek/8532817159b77c727040cf67c92af322
+- https://github.com/Chaosed0/DelaunayUnity/
