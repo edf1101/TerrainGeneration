@@ -16,3 +16,4 @@ I plan to implement this into a 2nd version of my ecosystem simulation though sl
 ### Credits
 - https://github.com/wo80/Triangle.NET
 - https://github.com/Auburn/FastNoiseLite
+- https://gist.github.com/a3geek/8532817159b77c727040cf67c92af322 
