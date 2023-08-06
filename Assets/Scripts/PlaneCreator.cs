@@ -6,24 +6,15 @@ using TriangleNet.Topology;
 
 // Code from Ed Fillingham for Terrain Generation 2 Project
 
-public class PlaneCreator : MonoBehaviour
+public class PlaneCreator 
 {
     
     Stopwatch SW = new Stopwatch(); // create a stopwatch so we can time things for efficiency
 
 
-    void Start()
-    {
-        SW.Start();// stopwatch start timing
+  
 
-        createPlane();  
-        SW.Stop();
-        UnityEngine.Debug.Log(SW.ElapsedMilliseconds); // print to console time elapsed
-
-
-    }
-
-    private void createPlane() 
+    private static UnityEngine.Mesh createPlane() 
     {
         Vector2[] pointsIn = getPoints(); // get PDS points 
 
@@ -45,14 +36,14 @@ public class PlaneCreator : MonoBehaviour
         // need to convert TriangleNetMesh into Unity Mesh
         UnityEngine.Mesh unityMesh= MakeMesh(triangleMesh);
 
-        GetComponent<MeshFilter>().mesh = unityMesh;
+        return unityMesh;
         
 
 
     }
 
 
-    private UnityEngine.Mesh MakeMesh(TriangleNet.Mesh _mesh)
+    private static UnityEngine.Mesh MakeMesh(TriangleNet.Mesh _mesh)
     {
         // code taken and modified from https://github.com/Chaosed0/DelaunayUnity/
 
@@ -98,7 +89,7 @@ public class PlaneCreator : MonoBehaviour
     }
 
 
-    private Vector3 GetPoint3D(TriangleNet.Mesh _mesh,int index)
+    private static Vector3 GetPoint3D(TriangleNet.Mesh _mesh,int index)
     {
         // code taken and modified from https://github.com/Chaosed0/DelaunayUnity/
 
@@ -110,7 +101,7 @@ public class PlaneCreator : MonoBehaviour
    
    
 
-    private Vector2[] getPoints() 
+    private static Vector2[] getPoints() 
     {
 
         List<Vector2> pdsPoints= FastPoissonDiskSampling.Sampling(new Vector2(1, 1), new Vector2(99, 99), 2); // creates list of points sampled with PDS
@@ -133,7 +124,7 @@ public class PlaneCreator : MonoBehaviour
         return pdsArray;
     }
 
-    private Vector3 ApplyWaves(Vector3 vert) 
+    private static Vector3 ApplyWaves(Vector3 vert) 
     {
         float freq = 50f;
         float amp = 1f;
