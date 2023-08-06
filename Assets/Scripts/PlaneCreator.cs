@@ -113,12 +113,12 @@ public class PlaneCreator : MonoBehaviour
     private Vector2[] getPoints() 
     {
 
-        List<Vector2> pdsPoints= FastPoissonDiskSampling.Sampling(new Vector2(2, 2), new Vector2(98, 98), 2); // creates list of points sampled with PDS
+        List<Vector2> pdsPoints= FastPoissonDiskSampling.Sampling(new Vector2(1, 1), new Vector2(99, 99), 2); // creates list of points sampled with PDS
         // these poitns are at least 2m from the edge so they dont interfere with edges
 
 
         // need to add outline, add points at an interval of 4m along the edge
-        for(int along = 0; along <= 100; along += 4)
+        for(int along = 0; along <= 100; along += 2)
         {
             pdsPoints.Add(new Vector2(0, along));
             pdsPoints.Add(new Vector2(along, 0));
@@ -140,7 +140,10 @@ public class PlaneCreator : MonoBehaviour
         // not quite working atm
 
         // we want solid edges on plane but we dont want them to be noticable so we apply sine wave to bump it up a little
-        //  return new Vector3(vert.x + amp*Mathf.Sin(vert.z/100f * freq), vert.y, vert.z + amp*Mathf.Sin(vert.x/100f * freq));
+        if((vert.x==0 || vert.x==100)&&vert.z<99 && vert.z>1)
+          return new Vector3(vert.x + amp*Mathf.Sin(vert.z/100f * freq), vert.y, vert.z);
+        else if ((vert.z == 0 || vert.z == 100) && vert.x < 99 && vert.x > 1)
+            return new Vector3(vert.x , vert.y, vert.z + amp * Mathf.Sin(vert.x / 100f * freq));
         return vert;
     }
 
