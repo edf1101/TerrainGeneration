@@ -73,9 +73,9 @@ public class PlaneCreator : MonoBehaviour
                 // For the triangles to be right-side up, they need
                 // to be wound in the opposite direction
 
-                Vector3 v0 = GetPoint3D(_mesh, triangle.vertices[2].id);
-                Vector3 v1 = GetPoint3D(_mesh, triangle.vertices[1].id);
-                Vector3 v2 = GetPoint3D(_mesh, triangle.vertices[0].id);
+                Vector3 v0 = ApplyWaves(GetPoint3D(_mesh, triangle.vertices[2].id));
+                Vector3 v1 = ApplyWaves(GetPoint3D(_mesh, triangle.vertices[1].id));
+                Vector3 v2 = ApplyWaves(GetPoint3D(_mesh, triangle.vertices[0].id));
 
                 triangles.Add(vertices.Count);
                 triangles.Add(vertices.Count + 1);
@@ -113,7 +113,9 @@ public class PlaneCreator : MonoBehaviour
     private Vector2[] getPoints() 
     {
 
-        List<Vector2> pdsPoints= FastPoissonDiskSampling.Sampling(new Vector2(0, 0), new Vector2(100, 100), 2); // creates list of points sampled with PDS
+        List<Vector2> pdsPoints= FastPoissonDiskSampling.Sampling(new Vector2(2, 2), new Vector2(98, 98), 2); // creates list of points sampled with PDS
+        // these poitns are at least 2m from the edge so they dont interfere with edges
+
 
         // need to add outline, add points at an interval of 4m along the edge
         for(int along = 0; along <= 100; along += 4)
@@ -130,7 +132,22 @@ public class PlaneCreator : MonoBehaviour
 
         return pdsArray;
     }
+
+    private Vector3 ApplyWaves(Vector3 vert) 
+    {
+        float freq = 50f;
+        float amp = 1f;
+        // not quite working atm
+
+        // we want solid edges on plane but we dont want them to be noticable so we apply sine wave to bump it up a little
+        //  return new Vector3(vert.x + amp*Mathf.Sin(vert.z/100f * freq), vert.y, vert.z + amp*Mathf.Sin(vert.x/100f * freq));
+        return vert;
+    }
+
+
 }
+
+
 
 
 /*Timing Data
