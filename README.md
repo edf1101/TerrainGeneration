@@ -8,7 +8,6 @@ I couldnt find any large scale terrain generation projects / tutorials that were
 ### New Features
 - Infinite Terrain
 - Better biome generation + Better variety of heightmaps for different biomes
-- Low Poly procedural clouds
 
 ### Future
 I plan to implement this into a 2nd version of my ecosystem simulation though slightly less focused on evolution and instead just having infinite terrain with animals populating it.
