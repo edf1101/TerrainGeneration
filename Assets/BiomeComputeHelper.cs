@@ -7,7 +7,7 @@ public class BiomeComputeHelper
    private ComputeShader myComputeShader;
 
     private List<biomeDescription> biomesIn;
-    private const float noiseFreq=0.001f;
+    private const float noiseFreq=0.01f;
     private Vector2 positionOffset;
     private Vector2 mapSize;
 

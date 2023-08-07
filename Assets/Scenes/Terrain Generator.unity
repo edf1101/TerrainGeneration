@@ -318,9 +318,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1606042115}
-  - component: {fileID: 1606042116}
   - component: {fileID: 1606042118}
   - component: {fileID: 1606042117}
+  - component: {fileID: 1606042119}
   m_Layer: 0
   m_Name: Object
   m_TagString: Untagged
@@ -343,18 +343,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1606042116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1606042114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85828cda52c0341dcb85374aceb0ab9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &1606042117
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -405,6 +393,29 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606042114}
   m_Mesh: {fileID: 0}
+--- !u!114 &1606042119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606042114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1281087c552f14178af08ddf6e754267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  biomeComputeShader: {fileID: 7200000, guid: 24a95942c92a14339b2809025e9693a6, type: 3}
+  theBiomes:
+  - id: 0
+    tempRange: {x: 0, y: 1}
+    humRange: {x: 0, y: 0.5}
+    colour: {r: 1, g: 0.071358845, b: 0, a: 0}
+  - id: 1
+    tempRange: {x: 0, y: 1}
+    humRange: {x: 0.5, y: 1}
+    colour: {r: 0, g: 1, b: 0.04313898, a: 0}
+  retTex: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

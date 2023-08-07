@@ -16,7 +16,7 @@ RWStructuredBuffer<biomeDescription> biomesBuffer; // holds the data for each bi
 int biomeNums; // the number of buffers in the biome
 float2 positionOffset; // where the noise should start ie tile x=1,y=1 offset = seed + float2(100,100)
 float noiseFrequency=1; // the frequency of noise
-const float2 humToTempOffset= float2(12835,52130); // fairly random offset between the temp and humidity maps 
+const float2 humToTempOffset= float2(1245,6438); // fairly random offset between the temp and humidity maps 
 float2 TextureSize;
 
 
@@ -25,8 +25,8 @@ void CSMain (uint3 id : SV_DispatchThreadID)
 {
     float2 position= id.xy+positionOffset;
 
-    float hum= snoise(noiseFrequency*position);
-    float temp= snoise((humToTempOffset + position)*noiseFrequency);
+    float hum= 0.5*(snoise(noiseFrequency*position)+1);
+    float temp= 0.5*(snoise(noiseFrequency*position+float2(100,100))+1);
 
     biomeDescription positionbiome;
 
@@ -47,7 +47,8 @@ void CSMain (uint3 id : SV_DispatchThreadID)
 
     // set data now
    // colourMap[id.xy]= positionbiome.colour;
-   colourMap[id.xy]= float4(temp,0,hum,1);//float4(hum,temp,0,1);
+   colourMap[id.xy]= float4(hum,temp,0,1);//float4(hum,temp,0,1);
+   
 
 
 }
