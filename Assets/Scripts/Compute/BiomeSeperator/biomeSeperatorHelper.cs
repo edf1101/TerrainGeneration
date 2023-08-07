@@ -20,38 +20,37 @@ public class biomeSeperatorHelper
 
 
     public float[] seperateBiome(int biomeID)
-    {
-        int[] returnMap = new int[(int)(mapSize.x * mapSize.y)];
+    { 
 
-        displayTex = new RenderTexture((int)mapSize.x, (int)mapSize.y, 24);
+        displayTex = new RenderTexture((int)mapSize.x, (int)mapSize.y, 24); // create a texture we use for debugging if it works
         displayTex.enableRandomWrite = true;
         displayTex.Create();
-        myShader.SetTexture(0, "displayTex", displayTex);
+        myShader.SetTexture(0, "displayTex", displayTex);// set the texture to the shader
 
-        myShader.SetInt("biomeID", biomeID);
+        myShader.SetInt("biomeID", biomeID);// set the shader variables
         myShader.SetVector("mapSize", mapSize);
 
-        ComputeBuffer inpBuffer = new ComputeBuffer(biomeMap.Length, sizeof(int));
-        ComputeBuffer outBuffer = new ComputeBuffer(biomeMap.Length, sizeof(float));
+        ComputeBuffer inpBuffer = new ComputeBuffer(biomeMap.Length, sizeof(int));// create buffers, for map in
+        ComputeBuffer outBuffer = new ComputeBuffer(biomeMap.Length, sizeof(float));// and the single biome out
 
 
-        float[] biomeOut = new float[(int)(mapSize.x * mapSize.y)];
+        float[] biomeOut = new float[(int)(mapSize.x * mapSize.y)];// set initial data for the buffers
         inpBuffer.SetData(biomeMap);
         outBuffer.SetData(biomeOut);
 
         myShader.SetBuffer(0, "biomeInBuffer", inpBuffer);
         myShader.SetBuffer(0, "singleOutBuffer", outBuffer);
 
-        myShader.Dispatch(0, Mathf.CeilToInt(mapSize.x / 16), Mathf.CeilToInt(mapSize.y / 16), 1);
+        myShader.Dispatch(0, Mathf.CeilToInt(mapSize.x / 16), Mathf.CeilToInt(mapSize.y / 16), 1); // run the compute shader
 
         outBuffer.GetData(biomeOut);
 
-        outBuffer.Release();
+        outBuffer.Release(); // release so the GPU is happy
         inpBuffer.Release();
 
         return biomeOut;
     }
-    public RenderTexture getDisplayTex()
+    public RenderTexture getDisplayTex() // return texture to the main script (debugging mainly)
     {
         return displayTex;
     }
