@@ -12,31 +12,35 @@ struct biomeDescription // struct so we can put this on one buffer
 
 RWTexture2D<float4> colourMap; // will create a texture that shows the colours on the map of each biome
 RWStructuredBuffer<biomeDescription> biomesBuffer; // holds the data for each biome
+RWStructuredBuffer<int> indexesBuffer; // holds the data for each index
 
 int biomeNums; // the number of buffers in the biome
 float2 positionOffset; // where the noise should start ie tile x=1,y=1 offset = seed + float2(100,100)
 float noiseFrequency=1; // the frequency of noise
-const float2 humToTempOffset= float2(1245,6438); // fairly random offset between the temp and humidity maps 
+float2 mapSize;
+
 float2 TextureSize;
 
 
-[numthreads(8,8,1)]
+[numthreads(16,16,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
     float2 position= id.xy+positionOffset;
 
-    float hum= 0.5*(snoise(noiseFrequency*position)+1);
-    float temp= 0.5*(snoise(noiseFrequency*position+float2(100,100))+1);
+    //get the condition values for the current position
+    float hum= 0.5*(snoise(noiseFrequency*position+float2(300,-26328))+1);// add a somewhat random offset to each map
+    float temp= 0.5*(snoise(noiseFrequency*position+float2(54658,6558))+1); 
 
     biomeDescription positionbiome;
 
-    for(int biome=0;biome<biomeNums;biomeNums++) // iterate through each biome so we know where this position falls
+    for(int biome=0;biome<biomeNums;biome++) // iterate through each biome so we know where this position falls
     {
         biomeDescription lookBiome= biomesBuffer[biome];// current biome were iterating through
 
         // hum/tempRange are x is lower bounds y is upper bound
-        bool inTempRange=(lookBiome.tempRange.x<temp && temp<lookBiome.tempRange.y); 
-        bool inHumRange=(lookBiome.humRange.x<hum && hum<lookBiome.humRange.y);
+        bool inTempRange=(lookBiome.tempRange.x<=temp && temp<=lookBiome.tempRange.y); 
+        bool inHumRange=(lookBiome.humRange.x<=hum && hum<=lookBiome.humRange.y);
+
         if(inTempRange && inHumRange)
         {
             positionbiome=lookBiome; // when its found the biome type then set it
@@ -46,8 +50,9 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     }
 
     // set data now
-   // colourMap[id.xy]= positionbiome.colour;
-   colourMap[id.xy]= float4(hum,temp,0,1);//float4(hum,temp,0,1);
+    colourMap[id.xy]= positionbiome.colour; // visual representation
+    indexesBuffer[id.y*mapSize.x + id.x]= positionbiome.id; // id data for each tile
+   
    
 
 

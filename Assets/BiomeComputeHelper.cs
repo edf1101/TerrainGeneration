@@ -13,6 +13,8 @@ public class BiomeComputeHelper
 
     private RenderTexture colourMap;
 
+    private int[] biomeIndexes;
+
    // constructor including all variables that are needed
     public BiomeComputeHelper(ComputeShader _Shader, Vector2 _mapSize, Vector2 _offset,List<biomeDescription> _biomesIn)
     {
@@ -20,6 +22,7 @@ public class BiomeComputeHelper
         mapSize = _mapSize;
         positionOffset = _offset;
         biomesIn = _biomesIn;
+        biomeIndexes = new int[(int)mapSize.x* (int)mapSize.y];
     }
 
     public void createBiomes() // will create the biomes
@@ -35,20 +38,28 @@ public class BiomeComputeHelper
         myComputeShader.SetInt("biomeNums", biomesIn.Count);
         myComputeShader.SetFloat("noiseFrequency", noiseFreq);
         myComputeShader.SetVector("positionOffset", positionOffset);
+        myComputeShader.SetVector("mapSize", mapSize);
 
         // biomeDescription cant use sizeof in safe context so we need to make custom stride
         int biomeDescriptionStride = sizeof(int) + 2 * sizeof(float) + 2 * sizeof(float) + 4*sizeof(float);
         ComputeBuffer biomesBuffer = new ComputeBuffer(biomesIn.Count, biomeDescriptionStride);
 
+        ComputeBuffer indexBuffer = new ComputeBuffer((int)(mapSize.x*mapSize.y), sizeof(int));
+
         // sets up biome buffer
         biomesBuffer.SetData(biomesIn.ToArray());
         myComputeShader.SetBuffer(0, "biomesBuffer", biomesBuffer);
 
+        // sets up index buffer
+        indexBuffer.SetData(biomeIndexes);
+        myComputeShader.SetBuffer(0, "indexesBuffer", indexBuffer);
 
-        myComputeShader.Dispatch(0, Mathf.CeilToInt(mapSize.x  / 8), Mathf.CeilToInt(mapSize.y  / 8), 1);
+        myComputeShader.Dispatch(0, Mathf.CeilToInt(mapSize.x  / 16), Mathf.CeilToInt(mapSize.y  / 16), 1);
 
-       
 
+        indexBuffer.GetData(biomeIndexes);
+
+        indexBuffer.Release();
         biomesBuffer.Release();
 
     }
@@ -56,6 +67,11 @@ public class BiomeComputeHelper
     public RenderTexture GetColourMap() // getter for colourMap
     {
         return colourMap;
+    }
+
+    public int[] getIDMap()
+    {
+        return biomeIndexes;
     }
 
 
