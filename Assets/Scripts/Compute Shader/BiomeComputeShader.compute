@@ -8,7 +8,7 @@ struct biomeDescription // struct so we can put this on one buffer
     float2 tempRange;
     float2 humRange;
     float4 colour;
-};
+}; 
 
 RWTexture2D<float4> colourMap; // will create a texture that shows the colours on the map of each biome
 RWStructuredBuffer<biomeDescription> biomesBuffer; // holds the data for each biome
@@ -25,8 +25,8 @@ void CSMain (uint3 id : SV_DispatchThreadID)
 {
     float2 position= id.xy+positionOffset;
 
-    float hum= snoise(position);
-    float temp= snoise(humToTempOffset + position);
+    float hum= snoise(noiseFrequency*position);
+    float temp= snoise((humToTempOffset + position)*noiseFrequency);
 
     biomeDescription positionbiome;
 
@@ -46,8 +46,8 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     }
 
     // set data now
-    colourMap[id.xy]= positionbiome.colour;
-
+   // colourMap[id.xy]= positionbiome.colour;
+   colourMap[id.xy]= float4(temp,0,hum,1);//float4(hum,temp,0,1);
 
 
 }
