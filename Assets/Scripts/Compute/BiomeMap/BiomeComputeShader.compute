@@ -25,6 +25,7 @@ float2 TextureSize;
 [numthreads(16,16,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
+    if(id.x<mapSize.x && id.y<mapSize.y){
     float2 position= id.xy+positionOffset;
 
     //get the condition values for the current position
@@ -51,10 +52,10 @@ void CSMain (uint3 id : SV_DispatchThreadID)
 
     // set data now
     colourMap[id.xy]= positionbiome.colour; // visual representation
-    indexesBuffer[id.y*mapSize.x + id.x]= positionbiome.id; // id data for each tile
+    indexesBuffer[(id.y*mapSize.x + id.x)]= positionbiome.id; // id data for each tile
    
    
 
-
+    }
 }
  

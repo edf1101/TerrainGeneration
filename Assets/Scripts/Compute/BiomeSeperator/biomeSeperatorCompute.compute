@@ -1,0 +1,31 @@
+
+#pragma kernel CSMain
+
+
+RWTexture2D<float4> displayTex; // used for display / debug purposes
+RWStructuredBuffer<int> biomeInBuffer; // holds the biome data for each index
+RWStructuredBuffer<float> singleOutBuffer; // will hold whether each index is specified biome
+
+int biomeID;
+float2 mapSize;
+
+
+
+[numthreads(16,16,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    int index= (id.y*mapSize.x)+id.x;
+
+    if(biomeInBuffer[index]==biomeID)
+    {
+        singleOutBuffer[index]=1.0;
+        displayTex[id.xy]= float4(1,1,1,1);
+    }
+    else
+    {
+        singleOutBuffer[index]=0;
+        displayTex[id.xy]= float4(0,0,0,1);
+    }
+
+
+}

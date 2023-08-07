@@ -44,7 +44,7 @@ public class BiomeComputeHelper
         int biomeDescriptionStride = sizeof(int) + 2 * sizeof(float) + 2 * sizeof(float) + 4*sizeof(float);
         ComputeBuffer biomesBuffer = new ComputeBuffer(biomesIn.Count, biomeDescriptionStride);
 
-        ComputeBuffer indexBuffer = new ComputeBuffer((int)(mapSize.x*mapSize.y), sizeof(int));
+        ComputeBuffer indexBuffer = new ComputeBuffer((int)(mapSize.x*mapSize.y), sizeof(int));// buffer stores the biome index value for each tile
 
         // sets up biome buffer
         biomesBuffer.SetData(biomesIn.ToArray());
@@ -57,9 +57,9 @@ public class BiomeComputeHelper
         myComputeShader.Dispatch(0, Mathf.CeilToInt(mapSize.x  / 16), Mathf.CeilToInt(mapSize.y  / 16), 1);
 
 
-        indexBuffer.GetData(biomeIndexes);
+        indexBuffer.GetData(biomeIndexes); // get the buffer data back into array
 
-        indexBuffer.Release();
+        indexBuffer.Release(); // release buffers so they dont hassle gpu
         biomesBuffer.Release();
 
     }
@@ -69,7 +69,7 @@ public class BiomeComputeHelper
         return colourMap;
     }
 
-    public int[] getIDMap()
+    public int[] getIDMap()// getter for biomeIndexes
     {
         return biomeIndexes;
     }
