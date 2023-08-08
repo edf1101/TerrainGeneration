@@ -7,41 +7,35 @@ public class TestScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public ComputeShader biomeComputeShader;
-    private BiomeComputeHelper BCHelper;
-    public List<biomeDescription> theBiomes;
-    public RenderTexture retTex;
-    public RenderTexture retTex2;
-    public RenderTexture retTex3;
-    public int[] biomeIndx;
     public ComputeShader biomeSeperatorShader;
-    public biomeSeperatorHelper BSHelper;
-    public BlurBiomeComputeHelper BBHelper;
     public ComputeShader BBComputeShader;
-    public float[] seps;
-    public int[] biomeFound;
+
+    public List<biomeDescription> theBiomes;
+
+    private BiomeDataCreator BDC;
+
+    public RenderTexture RT1;
+    public RenderTexture RT2;
 
     void Start()
     {
-       
-        BCHelper = new BiomeComputeHelper(biomeComputeShader,new Vector2(100,100),new Vector2(50,0), theBiomes);
-        BCHelper.createBiomes();
-        retTex = BCHelper.GetColourMap();
-        biomeIndx = BCHelper.getIDMap();
-        biomeFound = BCHelper.getBiomesFound();
-
-        BSHelper = new biomeSeperatorHelper(biomeSeperatorShader, biomeIndx, new Vector2(100, 100));
-       seps= BSHelper.seperateBiome(1);
-        retTex2 = BSHelper.getDisplayTex();
+        RT1 = testReturn(new Vector2(0, 0),0);
+        RT2 = testReturn(new Vector2(0, 0),1);
 
 
-        BBHelper = new BlurBiomeComputeHelper(BBComputeShader, seps, 5, new Vector2(100, 100));
-        BBHelper.Blur();
-        retTex3= BBHelper.getTex();
     }
 
 
     private void generateBiomes()
     {
 
+    }
+
+    private RenderTexture testReturn(Vector2 index,int biomeID)
+    {
+        BDC = new BiomeDataCreator(theBiomes, index);
+        BDC.setShaders(biomeComputeShader, biomeSeperatorShader, BBComputeShader);
+        BDC.createBiome();
+        return BDC.getRenderTex()[biomeID];
     }
 }
