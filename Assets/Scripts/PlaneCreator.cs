@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Diagnostics;// used for stopwatch
+//using System.Diagnostics;// used for stopwatch
 using TriangleNet.Geometry;// TriangleNet used for triangulation
 using TriangleNet.Topology;
 
@@ -8,35 +8,34 @@ using TriangleNet.Topology;
 
 public class PlaneCreator 
 {
-    
-    Stopwatch SW = new Stopwatch(); // create a stopwatch so we can time things for efficiency
+
+    static UnityEngine.Mesh preMesh;
 
 
-  
-
-    private static UnityEngine.Mesh createPlane() 
+    public static UnityEngine.Mesh createPlane() 
     {
-        Vector2[] pointsIn = getPoints(); // get PDS points 
-
-      //  UnityEngine.Debug.Log(pointsIn.Length); // print to console time elapsed
-
-
-        Polygon polygon = new Polygon(); // create a polygon for Triangle Library and add PDS points to it
-        for (int sampleNum = 0; sampleNum < pointsIn.Length; sampleNum++)
+        if (preMesh == null)
         {
-            polygon.Add(new Vertex((double)pointsIn[sampleNum].x, (double)pointsIn[sampleNum].y));
+            Vector2[] pointsIn = getPoints(); // get PDS points 
+            Debug.Log("remake");
+            Polygon polygon = new Polygon(); // create a polygon for Triangle Library and add PDS points to it
+            for (int sampleNum = 0; sampleNum < pointsIn.Length; sampleNum++)
+            {
+                polygon.Add(new Vertex((double)pointsIn[sampleNum].x, (double)pointsIn[sampleNum].y));
+            }
+
+            // turn the polygon struct into a triangulation Type: TriangleNet.Mesh
+            TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
+            TriangleNet.Mesh triangleMesh = (TriangleNet.Mesh)polygon.Triangulate(options);
+
+            TriangleBin bin = new TriangleBin(triangleMesh, 100, 100, pointsIn.Length);
+
+            // need to convert TriangleNetMesh into Unity Mesh
+            UnityEngine.Mesh unityMesh = MakeMesh(triangleMesh);
+            preMesh = unityMesh;
         }
 
-        // turn the polygon struct into a triangulation Type: TriangleNet.Mesh
-        TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
-        TriangleNet.Mesh triangleMesh = (TriangleNet.Mesh)polygon.Triangulate(options);
-
-        TriangleBin bin = new TriangleBin(triangleMesh, 100, 100, pointsIn.Length);
-
-        // need to convert TriangleNetMesh into Unity Mesh
-        UnityEngine.Mesh unityMesh= MakeMesh(triangleMesh);
-
-        return unityMesh;
+        return preMesh;
         
 
 

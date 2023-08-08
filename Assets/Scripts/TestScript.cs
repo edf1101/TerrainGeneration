@@ -22,6 +22,9 @@ public class TestScript : MonoBehaviour
         RT1 = testReturn(new Vector2(0, 0),0);
         RT2 = testReturn(new Vector2(0, 0),1);
 
+        //  PlaneCreator.createPlane();
+       
+
 
     }
 
