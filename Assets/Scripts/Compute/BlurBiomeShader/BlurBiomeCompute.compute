@@ -1,14 +1,73 @@
-// Each #kernel tells which function to compile; you can have many kernels
-#pragma kernel CSMain
+#pragma kernel CSHorizontalBlur
+#pragma kernel CSVerticalBlur
 
-// Create a RenderTexture with enableRandomWrite flag and set it
-// with cs.SetTexture
-RWTexture2D<float4> Result;
+// The output texture for blurred result
+RWTexture2D<float4> OutputTexture;
 
-[numthreads(8,8,1)]
-void CSMain (uint3 id : SV_DispatchThreadID)
-{
-    // TODO: insert actual code here!
+RWStructuredBuffer<float> indexesBuffer; // holds the data for each index
+RWStructuredBuffer<float> outBuffer; // holds the data for each index
 
-    Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
+// The size of the input texture
+float2 mapSize;
+
+// The Gaussian kernel size (odd value)
+//the kernel kind of means how far it looks in each direction
+int KernelSize = 7;
+
+
+[numthreads(1, 1, 1)]
+void CSHorizontalBlur (uint3 id : SV_DispatchThreadID) {
+
+    // make sure it doesnt look outside bounds
+    if(id.x<mapSize.x-KernelSize && id.y<mapSize.y-KernelSize && KernelSize<id.x && KernelSize<id.y){ 
+
+    int halfKernelSize = KernelSize / 2; 
+    
+    int index= (id.y*mapSize)+id.x; // index of current position
+
+
+    float value=0.0;
+
+    for (int i = -halfKernelSize; i <= halfKernelSize; i++) {// looks in half kernel in either direction
+        value+= indexesBuffer[index+i];
+    }
+
+    value= value/(KernelSize); // divide value sums by kernel to make it pseudo gaussian
+   
+    OutputTexture[id.xy] = float4(0,value,0,1.0);// assign values to texture + buffer
+    outBuffer[index]=value;
+    
+
+
+    }
+}
+
+
+
+[numthreads(1, 1, 1)]
+void CSVerticalBlur (uint3 id : SV_DispatchThreadID) {
+
+    if(id.x<mapSize.x-KernelSize && id.y<mapSize.y-KernelSize && KernelSize<id.x && KernelSize<id.y){
+
+    int halfKernelSize = KernelSize / 2;
+    
+    int index= (id.y*mapSize)+id.x;// index of current position
+
+
+    float value=0.0;
+    for (int i = -halfKernelSize; i <= halfKernelSize; i++) { // index of current position
+
+    // difference here  is that it goes up and down not left to right
+    // so we add it by i*mapSize.x so it goes up and down whole rows in array
+        value+= indexesBuffer[index+(i*mapSize.x)]; 
+    }
+
+    value= value/(KernelSize);/ divide value sums by kernel to make it pseudo gaussian
+   
+    OutputTexture[id.xy] = float4(0,value,0,1.0);// assign values to texture + buffer
+    outBuffer[index]=value;
+    
+
+
+    }
 }

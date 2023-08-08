@@ -11,10 +11,13 @@ public class TestScript : MonoBehaviour
     public List<biomeDescription> theBiomes;
     public RenderTexture retTex;
     public RenderTexture retTex2;
+    public RenderTexture retTex3;
     public int[] biomeIndx;
     public ComputeShader biomeSeperatorShader;
     public biomeSeperatorHelper BSHelper;
-
+    public BlurBiomeComputeHelper BBHelper;
+    public ComputeShader BBComputeShader;
+    public float[] seps;
 
     void Start()
     {
@@ -25,8 +28,13 @@ public class TestScript : MonoBehaviour
         biomeIndx = BCHelper.getIDMap();
 
         BSHelper = new biomeSeperatorHelper(biomeSeperatorShader, biomeIndx, new Vector2(100, 100));
-        BSHelper.seperateBiome(1);
+       seps= BSHelper.seperateBiome(1);
         retTex2 = BSHelper.getDisplayTex();
+
+
+        BBHelper = new BlurBiomeComputeHelper(BBComputeShader, seps, 5, new Vector2(100, 100));
+        BBHelper.Blur();
+        retTex3= BBHelper.getTex();
     }
 
 
