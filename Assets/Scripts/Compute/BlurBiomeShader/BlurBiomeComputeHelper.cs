@@ -43,8 +43,12 @@ public class BlurBiomeComputeHelper
         outBufferHor.SetData(outArray);
         myShader.SetBuffer(0, "outBuffer", outBufferHor); // set it to the horizontal pass (Kernel 0)
 
+        // this code does nothing technically but needed so shader doesnt get unhappy
+        outputRT = new RenderTexture(width, height, 0);
+        outputRT.enableRandomWrite = true;
+        outputRT.Create();
+        myShader.SetTexture(0, "OutputTexture", outputRT);// set texture to vertical pass
 
-  
         myShader.SetInt("KernelSize", blurRad); // set variables to shader
         myShader.SetVector("mapSize", mapSize);
 

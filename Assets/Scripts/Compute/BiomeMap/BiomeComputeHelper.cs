@@ -15,6 +15,8 @@ public class BiomeComputeHelper
 
     private int[] biomeIndexes;
 
+    private int [] biomesFound; // cant use bool as not blittable so either 1 or 0
+
    // constructor including all variables that are needed
     public BiomeComputeHelper(ComputeShader _Shader, Vector2 _mapSize, Vector2 _offset,List<biomeDescription> _biomesIn)
     {
@@ -46,6 +48,11 @@ public class BiomeComputeHelper
 
         ComputeBuffer indexBuffer = new ComputeBuffer((int)(mapSize.x*mapSize.y), sizeof(int));// buffer stores the biome index value for each tile
 
+        // buffer stores whether a specific biome is found useful so we
+        // dont have to waste time doing blur and seperate if doesnt exist in tile
+        biomesFound = new int[biomesIn.Count];
+        ComputeBuffer biomeFoundBuffer = new ComputeBuffer(biomesIn.Count, sizeof(int));
+
         // sets up biome buffer
         biomesBuffer.SetData(biomesIn.ToArray());
         myComputeShader.SetBuffer(0, "biomesBuffer", biomesBuffer);
@@ -54,13 +61,21 @@ public class BiomeComputeHelper
         indexBuffer.SetData(biomeIndexes);
         myComputeShader.SetBuffer(0, "indexesBuffer", indexBuffer);
 
+        // sets up biomes found buffer
+        biomeFoundBuffer.SetData(biomesFound);
+        myComputeShader.SetBuffer(0, "biomesFoundBuffer", biomeFoundBuffer);
+
+
         myComputeShader.Dispatch(0, Mathf.CeilToInt(mapSize.x  / 16), Mathf.CeilToInt(mapSize.y  / 16), 1);
 
 
         indexBuffer.GetData(biomeIndexes); // get the buffer data back into array
+        biomeFoundBuffer.GetData(biomesFound);
+
 
         indexBuffer.Release(); // release buffers so they dont hassle gpu
         biomesBuffer.Release();
+        biomeFoundBuffer.Release();
 
     }
 
@@ -72,6 +87,11 @@ public class BiomeComputeHelper
     public int[] getIDMap()// getter for biomeIndexes
     {
         return biomeIndexes;
+    }
+
+    public int[] getBiomesFound()
+    {
+        return biomesFound;
     }
 
 

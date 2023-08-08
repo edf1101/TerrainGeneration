@@ -13,6 +13,8 @@ struct biomeDescription // struct so we can put this on one buffer
 RWTexture2D<float4> colourMap; // will create a texture that shows the colours on the map of each biome
 RWStructuredBuffer<biomeDescription> biomesBuffer; // holds the data for each biome
 RWStructuredBuffer<int> indexesBuffer; // holds the data for each index
+RWStructuredBuffer<int> biomesFoundBuffer; // holds the data for whether each biome is found
+
 
 int biomeNums; // the number of buffers in the biome
 float2 positionOffset; // where the noise should start ie tile x=1,y=1 offset = seed + float2(100,100)
@@ -53,7 +55,7 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     // set data now
     colourMap[id.xy]= positionbiome.colour; // visual representation
     indexesBuffer[(id.y*mapSize.x + id.x)]= positionbiome.id; // id data for each tile
-   
+   biomesFoundBuffer[positionbiome.id]=1;
    
 
     }

@@ -18,6 +18,7 @@ public class TestScript : MonoBehaviour
     public BlurBiomeComputeHelper BBHelper;
     public ComputeShader BBComputeShader;
     public float[] seps;
+    public int[] biomeFound;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class TestScript : MonoBehaviour
         BCHelper.createBiomes();
         retTex = BCHelper.GetColourMap();
         biomeIndx = BCHelper.getIDMap();
+        biomeFound = BCHelper.getBiomesFound();
 
         BSHelper = new biomeSeperatorHelper(biomeSeperatorShader, biomeIndx, new Vector2(100, 100));
        seps= BSHelper.seperateBiome(1);

@@ -38,7 +38,7 @@ void CSHorizontalBlur (uint3 id : SV_DispatchThreadID) {
     outBuffer[index]=value;
     
 
-
+     
     }
 }
 
@@ -62,7 +62,7 @@ void CSVerticalBlur (uint3 id : SV_DispatchThreadID) {
         value+= indexesBuffer[index+(i*mapSize.x)]; 
     }
 
-    value= value/(KernelSize);/ divide value sums by kernel to make it pseudo gaussian
+    value= value/(KernelSize);// divide value sums by kernel to make it pseudo gaussian
    
     OutputTexture[id.xy] = float4(0,value,0,1.0);// assign values to texture + buffer
     outBuffer[index]=value;
