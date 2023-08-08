@@ -37,8 +37,12 @@ void CSHorizontalBlur (uint3 id : SV_DispatchThreadID) {
     OutputTexture[id.xy] = float4(0,value,0,1.0);// assign values to texture + buffer
     outBuffer[index]=value;
     
-
-     
+    }
+    else if(id.x<mapSize.x && id.y<mapSize.y){
+        int index= (id.y*mapSize)+id.x;
+        float value = indexesBuffer[index];
+        OutputTexture[id.xy] = float4(0,value,0,1.0);// assign values to texture + buffer
+        outBuffer[index]=value;
     }
 }
 
