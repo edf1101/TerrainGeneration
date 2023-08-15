@@ -4,7 +4,6 @@ using UnityEngine;
 using TriangleNet.Geometry;// TriangleNet used for triangulation
 using TriangleNet.Topology;
 
-// Code from Ed Fillingham for Terrain Generation 2 Project
 
 public class PlaneCreator 
 {
