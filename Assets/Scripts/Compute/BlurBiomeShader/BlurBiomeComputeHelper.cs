@@ -75,6 +75,8 @@ public class BlurBiomeComputeHelper
         myShader.Dispatch(1, width, height, 1);// dispatch vertical pass
 
         outBufferHor.GetData(outArray); // return the array of blurs
+        outBufferHor.Release();
+        inpBufferHor.Release();
         return outArray;
     }
 

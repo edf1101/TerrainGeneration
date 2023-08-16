@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Diagnostics;
 
 public class TestScript : MonoBehaviour
 {
@@ -19,11 +19,15 @@ public class TestScript : MonoBehaviour
 
     void Start()
     {
-        RT1 = testReturn(new Vector2(0, 0),0);
-        RT2 = testReturn(new Vector2(0, 0),1);
-
-        //  PlaneCreator.createPlane();
+        Stopwatch SW =new  Stopwatch();
+        BDC = new BiomeDataCreator(theBiomes, new Vector2(0,0));
+        BDC.setShaders(biomeComputeShader, biomeSeperatorShader, BBComputeShader);
+        SW.Start();
+        BDC.createBiome();
+        SW.Stop();  
+        BDC.ApplyHeights();
        
+        UnityEngine.Debug.Log(SW.ElapsedMilliseconds);
 
 
     }

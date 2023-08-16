@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq; //so we can use summing arrays 
 
 public class BiomeDataCreator 
 {
@@ -27,7 +27,9 @@ public class BiomeDataCreator
 
     // for debug purposes really can find the blur texture for each biome
     private Dictionary<int, RenderTexture> texByID;
+    private Dictionary<int, float[]> blursByID;
 
+    private int[] biomeInTile;
 
     // must be run before creating biome so Compute shaders are set
     public void setShaders(ComputeShader _biomeCreate,ComputeShader _biomeSeperate,ComputeShader _biomeBlur)
@@ -54,12 +56,12 @@ public class BiomeDataCreator
 
         // which biomes are in the terrain ie if biome id 0 is in terrain and
         // 1 isnt the array is: [1,0] <- 1 represents it is in terrain like bool
-        int[] biomeInTile = BCHelper.getBiomesFound(); 
+        biomeInTile = BCHelper.getBiomesFound(); 
 
         //for each biome id it creates a blur texture / array
-        Dictionary<int, float[]> blursByID = new Dictionary<int, float[]>();
+      
          texByID = new Dictionary<int, RenderTexture>();
-
+        blursByID = new Dictionary<int, float[]>();
         // create the biome seperator instance
         biomeSeperatorHelper BSHelper = new biomeSeperatorHelper(biomeSeperateShader, biomeIndexes, mapSize);
 
@@ -90,17 +92,45 @@ public class BiomeDataCreator
         Vector3[] verts = planeFlat.vertices;  // get the flat plane vertices
 
 
-        for(int i=0; i < verts.Length; i++)
+        for(int vertInd=0; vertInd < verts.Length; vertInd++)
         {
-            Vector3 vertex = verts[i]; //current vertex
+            Vector3 vertex = verts[vertInd]; //current vertex 
+            Vector3 vertexWorld = vertex + new Vector3(TileSize.x*biomeIndex.x,TileSize.y*biomeIndex.y); //current vertex world position
 
+            int arrayIndex = ((int)(vertex.y * TileSize.y)) + (int)(vertex.x);
             //need to find all the biome blur values for the current vertex
             // then store the percentage of each biome in the vector in a dictionary
             // containing only keys where biome blur[vertex]>0
-            
 
+            List<float> biomeValues = new List<float>();
+            List<biomeDescription> biomeData = new List<biomeDescription>();
+            for (int findBiome = 0; findBiome < biomeInTile.Length; findBiome++) // go through all biomes in blursByID
+            {
+                // if there is a blur texture for specific biome this means its in scene at least
+                
+                if (blursByID.ContainsKey(findBiome) ) 
+                {
+                    float biomePer = blursByID[findBiome][arrayIndex]; // store this and do nested if so we only need to fetch from array once (Speed)
+                    if (biomePer != 0)// make sure the value isnt 0 - So we dont bother calculating if nothing there
+                    {
+                        biomeValues.Add(biomePer);
+                        biomeData.Add(theBiomes[findBiome]);
+                    }
+                }
+            }
+
+            float[] biomeValuesArray = biomeValues.ToArray();
+            biomeDescription[] biomeDataArray = biomeData.ToArray();
+            // we now have 2 Lists holding the unnormalised percentage each tile is a biome and what type
+            // need to normalise the percentages (so it adds up to 1)
+
+            float sum = biomeValuesArray.Sum();
+            for (int i = 0; i < biomeValuesArray.Length; i++)
+                biomeValuesArray[i] = biomeValuesArray[i] / sum;
+            //all now normalised
 
             // store find which terrain types are required
+
 
 
             // if count( terrain type) == length of biomes in vertex then its shared between all
