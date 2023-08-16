@@ -22,16 +22,23 @@ public class TestScript : MonoBehaviour
         Stopwatch SW =new  Stopwatch();
         BDC = new BiomeDataCreator(theBiomes, new Vector2(0,0));
         BDC.setShaders(biomeComputeShader, biomeSeperatorShader, BBComputeShader);
-        SW.Start();
         BDC.createBiome();
-        SW.Stop();  
+        SW.Start();
+
         BDC.ApplyHeights();
-       
+        SW.Stop();
+
         UnityEngine.Debug.Log(SW.ElapsedMilliseconds);
+        SW.Reset();
+        SW.Start();
 
+        BDC.ApplyHeights();
+        SW.Stop();
 
+        UnityEngine.Debug.Log(SW.ElapsedMilliseconds);
+        temp = BDC.temp;
     }
-
+    public float[] temp;
 
     private void generateBiomes()
     {

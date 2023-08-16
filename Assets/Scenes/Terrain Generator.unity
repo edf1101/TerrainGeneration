@@ -409,16 +409,12 @@ MonoBehaviour:
   biomeSeperatorShader: {fileID: 7200000, guid: a81f73e15032847dc841c492aa7f1388, type: 3}
   BBComputeShader: {fileID: 7200000, guid: 0718d0dd91cca40c2a5badcf606dba90, type: 3}
   theBiomes:
-  - id: 0
-    tempRange: {x: 0, y: 1}
-    humRange: {x: 0, y: 0.5}
-    colour: {r: 1, g: 0.071358845, b: 0, a: 0}
-  - id: 1
-    tempRange: {x: 0, y: 1}
-    humRange: {x: 0.5, y: 1}
-    colour: {r: 0, g: 1, b: 0.04313898, a: 0}
+  - {fileID: 11400000, guid: 92fb9e5e0bd074b7eb76eb5ed033b6da, type: 2}
+  - {fileID: 11400000, guid: 35f199d00bac1425385d6abdeedb2712, type: 2}
+  - {fileID: 11400000, guid: a4c364b0782944ac78b755d7a2844762, type: 2}
   RT1: {fileID: 0}
   RT2: {fileID: 0}
+  temp: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

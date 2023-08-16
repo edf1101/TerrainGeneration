@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq; //so we can use summing arrays 
+using TriangleNet.Geometry;// TriangleNet used for triangulation
+using TriangleNet.Topology;
+
 
 public class BiomeDataCreator 
 {
@@ -9,7 +12,7 @@ public class BiomeDataCreator
 
     private const int blurRad=9; // radius of blur gets changed here
     private  Vector2 TileSize = new Vector2(100, 100); // size of tile this should be const but doesnt work with Vector2
-
+    private const int maxDelaunayWarp = 2; // the delaunay 2d plane gets warped a bit and we need to account for this
 
     // constructor to pass semi important variables
     public BiomeDataCreator( List<biomeDescription> _theBiomes, Vector2 _biomeIndex) 
@@ -44,10 +47,10 @@ public class BiomeDataCreator
     public void createBiome()
     {
         // genrating map size according to blur + tile Size
-        Vector2 mapSize = TileSize + Vector2.one * blurRad * 2; 
+        Vector2 mapSize = TileSize + Vector2.one * blurRad * 2 + Vector2.one*maxDelaunayWarp*2; 
 
         //create the base biome map
-        BiomeComputeHelper BCHelper = new BiomeComputeHelper(biomeCreateShader, mapSize, biomeIndex * TileSize - Vector2.one * blurRad, theBiomes);
+        BiomeComputeHelper BCHelper = new BiomeComputeHelper(biomeCreateShader, mapSize, biomeIndex * TileSize - Vector2.one * blurRad - Vector2.one *maxDelaunayWarp, theBiomes);
         BCHelper.createBiomes();
 
 
@@ -79,25 +82,31 @@ public class BiomeDataCreator
                 //add the blurred data to dictionaries
                 blursByID.Add(id, blurForID);
                 texByID.Add(id, BBHelper.getTex());
-
+                temp = blurForID;
             }
         }
 
 
     }
 
+    public float[] temp;
+
     public void ApplyHeights()
     {
-        Mesh planeFlat = PlaneCreator.createPlane(); // create or reuse plane
+        UnityEngine.Mesh planeFlat = PlaneCreator.createPlaneUnity(); // create or reuse plane
+       
         Vector3[] verts = planeFlat.vertices;  // get the flat plane vertices
 
+        //planeFlatTri.v
 
         for(int vertInd=0; vertInd < verts.Length; vertInd++)
         {
-            Vector3 vertex = verts[vertInd]; //current vertex 
+            Vector3 vertex = verts[vertInd]; //current vertex
+            Vector3 correctedVert= vertex + new Vector3(1,0,1)*(blurRad+maxDelaunayWarp);
             Vector3 vertexWorld = vertex + new Vector3(TileSize.x*biomeIndex.x,TileSize.y*biomeIndex.y); //current vertex world position
 
-            int arrayIndex = ((int)(vertex.y * TileSize.y)) + (int)(vertex.x);
+            int arrayIndex = ((int)(correctedVert.z * TileSize.y)) + (int)(correctedVert.x);
+
             //need to find all the biome blur values for the current vertex
             // then store the percentage of each biome in the vector in a dictionary
             // containing only keys where biome blur[vertex]>0
@@ -110,9 +119,14 @@ public class BiomeDataCreator
                 
                 if (blursByID.ContainsKey(findBiome) ) 
                 {
+
+                  //  Debug.Log(arrayIndex);
+                  //  Debug.Log(correctedVert);
                     float biomePer = blursByID[findBiome][arrayIndex]; // store this and do nested if so we only need to fetch from array once (Speed)
                     if (biomePer != 0)// make sure the value isnt 0 - So we dont bother calculating if nothing there
                     {
+                      //  Debug.Log("!");
+
                         biomeValues.Add(biomePer);
                         biomeData.Add(theBiomes[findBiome]);
                     }

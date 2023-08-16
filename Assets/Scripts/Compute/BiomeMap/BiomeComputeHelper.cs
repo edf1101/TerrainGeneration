@@ -53,8 +53,16 @@ public class BiomeComputeHelper
         biomesFound = new int[biomesIn.Count];
         ComputeBuffer biomeFoundBuffer = new ComputeBuffer(biomesIn.Count, sizeof(int));
 
+        //need to convert to blittable biome data
+        List<BiomeDescriptionBlittable> biomesBlittable = new List<BiomeDescriptionBlittable>();
+        foreach(biomeDescription biome in biomesIn)
+        {
+            biomesBlittable.Add(new BiomeDescriptionBlittable(biome.id, biome.tempRange, biome.humRange, biome.debugColour));
+        }
+
+
         // sets up biome buffer
-        biomesBuffer.SetData(biomesIn.ToArray());
+        biomesBuffer.SetData(biomesBlittable.ToArray());
         myComputeShader.SetBuffer(0, "biomesBuffer", biomesBuffer);
 
         // sets up index buffer
@@ -97,12 +105,3 @@ public class BiomeComputeHelper
 
 }
 
-// struct for biome description we use this is the c# version to convert between c# and hlsl
-[System.Serializable]
-public struct biomeDescription
-{
-    public int id;
-   public  Vector2 tempRange;
-    public Vector2 humRange;
-    public Color colour;
-}

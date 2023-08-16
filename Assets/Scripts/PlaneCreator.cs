@@ -9,9 +9,39 @@ public class PlaneCreator
 {
 
     static UnityEngine.Mesh preMesh;
+    static TriangleNet.Mesh preMeshTri;
+
+    public static TriangleNet.Mesh createPlaneTri() 
+    {
+        if (preMeshTri == null)
+        {
+            Vector2[] pointsIn = getPoints(); // get PDS points 
+            Debug.Log("remake");
+            Polygon polygon = new Polygon(); // create a polygon for Triangle Library and add PDS points to it
+            for (int sampleNum = 0; sampleNum < pointsIn.Length; sampleNum++)
+            {
+                polygon.Add(new Vertex((double)pointsIn[sampleNum].x, (double)pointsIn[sampleNum].y));
+            }
+
+            // turn the polygon struct into a triangulation Type: TriangleNet.Mesh
+            TriangleNet.Meshing.ConstraintOptions options = new TriangleNet.Meshing.ConstraintOptions() { ConformingDelaunay = true };
+            TriangleNet.Mesh triangleMesh = (TriangleNet.Mesh)polygon.Triangulate(options);
+
+            TriangleBin bin = new TriangleBin(triangleMesh, 100, 100, pointsIn.Length);
+
+            // need to convert TriangleNetMesh into Unity Mesh
+            // UnityEngine.Mesh unityMesh = MakeMesh(triangleMesh);
+            preMeshTri = triangleMesh;
+            preMesh = MakeMesh(triangleMesh);
+        }
+
+        return preMeshTri;
+        
 
 
-    public static UnityEngine.Mesh createPlane() 
+    }
+
+    public static UnityEngine.Mesh createPlaneUnity()
     {
         if (preMesh == null)
         {
@@ -30,14 +60,20 @@ public class PlaneCreator
             TriangleBin bin = new TriangleBin(triangleMesh, 100, 100, pointsIn.Length);
 
             // need to convert TriangleNetMesh into Unity Mesh
-            UnityEngine.Mesh unityMesh = MakeMesh(triangleMesh);
-            preMesh = unityMesh;
+            // UnityEngine.Mesh unityMesh = MakeMesh(triangleMesh);
+            preMeshTri = triangleMesh;
+            preMesh = MakeMesh(triangleMesh);
         }
 
         return preMesh;
-        
 
 
+
+    }
+
+    public static UnityEngine.Mesh TriToUnityMesh(TriangleNet.Mesh triMesh)
+    {
+        return MakeMesh(triMesh);
     }
 
 
