@@ -17,4 +17,5 @@ MonoBehaviour:
   tempRange: {x: 0, y: 0.3}
   humRange: {x: 0, y: 1}
   debugColour: {r: 0.86743504, g: 0.9427837, b: 0.9528302, a: 1}
-  terrainGenTypes: []
+  terrainGenTypes:
+  - Med Hills

@@ -14,32 +14,32 @@ public class TestScript : MonoBehaviour
 
     private BiomeDataCreator BDC;
 
-    public RenderTexture RT1;
-    public RenderTexture RT2;
+    public List<terrainNoisePreset> noisePresets;
 
+    public RenderTexture thisBiomeSet;
+    public Vector2 mapCood;
     void Start()
     {
-        Stopwatch SW =new  Stopwatch();
-        BDC = new BiomeDataCreator(theBiomes, new Vector2(0,0));
+        Stopwatch SW = new Stopwatch();
+        SW.Start();
+        terrainNoise.setNoisePresets(noisePresets);
+        BDC = new BiomeDataCreator(theBiomes, mapCood);
         BDC.setShaders(biomeComputeShader, biomeSeperatorShader, BBComputeShader);
         BDC.createBiome();
-        SW.Start();
+      
+        
 
-        BDC.ApplyHeights();
+        Mesh newMesh = BDC.ApplyHeights();
+       
+        
+        GetComponent<MeshFilter>().mesh = newMesh;
         SW.Stop();
-
         UnityEngine.Debug.Log(SW.ElapsedMilliseconds);
-        SW.Reset();
-        SW.Start();
-
-        BDC.ApplyHeights();
-        SW.Stop();
-
-        UnityEngine.Debug.Log(SW.ElapsedMilliseconds);
-        temp = BDC.temp;
+        thisBiomeSet = BDC.getBiomeMap();
+       
     }
     public float[] temp;
-
+    
     private void generateBiomes()
     {
 
@@ -52,4 +52,6 @@ public class TestScript : MonoBehaviour
         BDC.createBiome();
         return BDC.getRenderTex()[biomeID];
     }
+    
+
 }

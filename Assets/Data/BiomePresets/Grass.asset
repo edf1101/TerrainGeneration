@@ -17,4 +17,5 @@ MonoBehaviour:
   tempRange: {x: 0.3, y: 0.7}
   humRange: {x: 0, y: 1}
   debugColour: {r: 0.08289608, g: 0.5471698, b: 0.028390888, a: 1}
-  terrainGenTypes: []
+  terrainGenTypes:
+  - High Hills

@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aadea95d0d1ce485a9f46b5c58f31df3, type: 3}
-  m_Name: Desert
+  m_Script: {fileID: 11500000, guid: 472fd8427d71944c79f6b265566ef888, type: 3}
+  m_Name: High Hills
   m_EditorClassIdentifier: 
-  biomeName: Desert
-  id: 0
-  tempRange: {x: 0.7, y: 1}
-  humRange: {x: 0, y: 1}
-  debugColour: {r: 1, g: 0.81539834, b: 0, a: 0}
-  terrainGenTypes:
-  - Med Hills
+  terrainName: High Hills
+  heightMult: 20
+  frequency: 0.02
+  octaves: 1
+  gain: 1
+  lacunarity: 1

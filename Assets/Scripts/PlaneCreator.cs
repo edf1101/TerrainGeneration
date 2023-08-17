@@ -16,7 +16,7 @@ public class PlaneCreator
         if (preMeshTri == null)
         {
             Vector2[] pointsIn = getPoints(); // get PDS points 
-            Debug.Log("remake");
+           // Debug.Log("remake");
             Polygon polygon = new Polygon(); // create a polygon for Triangle Library and add PDS points to it
             for (int sampleNum = 0; sampleNum < pointsIn.Length; sampleNum++)
             {
@@ -43,6 +43,7 @@ public class PlaneCreator
 
     public static UnityEngine.Mesh createPlaneUnity()
     {
+        
         if (preMesh == null)
         {
             Vector2[] pointsIn = getPoints(); // get PDS points 
@@ -63,9 +64,20 @@ public class PlaneCreator
             // UnityEngine.Mesh unityMesh = MakeMesh(triangleMesh);
             preMeshTri = triangleMesh;
             preMesh = MakeMesh(triangleMesh);
+            
+            
         }
 
-        return preMesh;
+        //effectively deep copying the mesh this is required as before it
+        //changing height in terrain gen used to modify this base plane
+        // which is bad as that impacted future terrain gens
+        Mesh retMesh = new Mesh();
+        retMesh.vertices = preMesh.vertices;
+        retMesh.triangles = preMesh.triangles;
+        retMesh.normals = preMesh.normals;
+
+
+        return retMesh;
 
 
 

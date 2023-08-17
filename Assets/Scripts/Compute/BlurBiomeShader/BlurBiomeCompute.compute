@@ -23,7 +23,7 @@ void CSHorizontalBlur (uint3 id : SV_DispatchThreadID) {
 
     int halfKernelSize = KernelSize / 2; 
     
-    int index= (id.y*mapSize)+id.x; // index of current position
+    int index= (id.y*mapSize.x)+id.x; // index of current position
 
 
     float value=0.0;
@@ -39,7 +39,7 @@ void CSHorizontalBlur (uint3 id : SV_DispatchThreadID) {
     
     }
     else if(id.x<mapSize.x && id.y<mapSize.y){
-        int index= (id.y*mapSize)+id.x;
+        int index= (id.y*mapSize.x)+id.x;
         float value = indexesBuffer[index];
         OutputTexture[id.xy] = float4(0,value,0,1.0);// assign values to texture + buffer
         outBuffer[index]=value;
@@ -55,7 +55,7 @@ void CSVerticalBlur (uint3 id : SV_DispatchThreadID) {
 
     int halfKernelSize = KernelSize / 2;
     
-    int index= (id.y*mapSize)+id.x;// index of current position
+    int index= (id.y*mapSize.x)+id.x;// index of current position
 
 
     float value=0.0;
