@@ -17,11 +17,11 @@ int KernelSize = 7;
 
 [numthreads(1, 1, 1)]
 void CSHorizontalBlur (uint3 id : SV_DispatchThreadID) {
-
-    // make sure it doesnt look outside bounds
-    if(id.x<mapSize.x-KernelSize && id.y<mapSize.y-KernelSize && KernelSize<id.x && KernelSize<id.y){ 
-
     int halfKernelSize = KernelSize / 2; 
+
+    // make sure it doesnt blur outside bounds
+    if(id.x<mapSize.x-halfKernelSize && id.y<mapSize.y-halfKernelSize && halfKernelSize<id.x && halfKernelSize<id.y){ 
+
     
     int index= (id.y*mapSize.x)+id.x; // index of current position
 
@@ -51,9 +51,10 @@ void CSHorizontalBlur (uint3 id : SV_DispatchThreadID) {
 [numthreads(1, 1, 1)]
 void CSVerticalBlur (uint3 id : SV_DispatchThreadID) {
 
-    if(id.x<mapSize.x-KernelSize && id.y<mapSize.y-KernelSize && KernelSize<id.x && KernelSize<id.y){
-
     int halfKernelSize = KernelSize / 2;
+
+    if(id.x<mapSize.x-halfKernelSize && id.y<mapSize.y-halfKernelSize && halfKernelSize<id.x && halfKernelSize<id.y){
+
     
     int index= (id.y*mapSize.x)+id.x;// index of current position
 

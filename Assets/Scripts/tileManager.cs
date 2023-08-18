@@ -38,7 +38,6 @@ public class tileManager : MonoBehaviour
         GetComponent<MeshRenderer>().material = terrainMaterial;
         GetComponent<MeshFilter>().mesh = tileMesh;
 
-        //debug stuff
-        debugRT = BDC.getRenderTex()[0];
+       
     }
 }
