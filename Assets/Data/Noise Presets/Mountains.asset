@@ -16,9 +16,9 @@ MonoBehaviour:
   heightMult: 40
   frequency: 0.01
   seedOffset: 12
-  octaves: 3
-  gain: 0.5
-  lacunarity: 4
+  octaves: 5
+  gain: 0.7
+  lacunarity: 2
   doingPlateau: 0
   plateauGap: 20
   behaviourCurve:

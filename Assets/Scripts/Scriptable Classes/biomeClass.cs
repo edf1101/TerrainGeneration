@@ -8,12 +8,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Biome Preset", menuName = "Scriptables/Biome Preset",order =1)]
 public class biomeDescription : ScriptableObject
 {
+    [Header("Basic Settings")]
     public string biomeName;
     public int id;
+    public string[] terrainGenTypes;
+
+    [Header("Required Conditions")]
     public Vector2 tempRange;
     public Vector2 humRange;
+
+    [Header("Colours")]
     public Color debugColour;
-    public string[] terrainGenTypes;
+    public Gradient steepColour; // for cliff edges etc
+    public Gradient steepSomewhatColour; // for almost cliff edges etc
+    public Gradient lowColour; // usually for underwater or beach
+    public Gradient highColour; // for high up eg mountain top
+    public Gradient normalColour; // for flat terrain etc
 }
 
 
