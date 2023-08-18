@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aadea95d0d1ce485a9f46b5c58f31df3, type: 3}
-  m_Name: Desert
+  m_Name: Desert 1
   m_EditorClassIdentifier: 
   biomeName: Desert
   id: 0
@@ -18,5 +18,5 @@ MonoBehaviour:
   humRange: {x: 0, y: 1}
   debugColour: {r: 1, g: 0.81539834, b: 0, a: 0}
   terrainGenTypes:
-  - Mountains
+  - Plateau
   - Detail

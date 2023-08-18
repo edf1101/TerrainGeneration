@@ -10,6 +10,8 @@ public class terrainNoise : MonoBehaviour
 
     private static FastNoiseLite noiseGenerator = new FastNoiseLite();
 
+    private static int seed = 1137; // the seed we use to randomise things
+
     // this function will return a height value for a given type of noise
     public static float GetNoise(Vector3 position,string noiseType)
     {
@@ -19,6 +21,7 @@ public class terrainNoise : MonoBehaviour
         terrainNoisePreset noisePreset = noisePresets[noiseType];
 
         //basics
+        noiseGenerator.SetSeed(seed + noisePreset.seedOffset);
         noiseGenerator.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
         noiseGenerator.SetFrequency(noisePreset.frequency);
 
@@ -30,9 +33,27 @@ public class terrainNoise : MonoBehaviour
         // calculate noise at that position
         float rawNoise = noiseGenerator.GetNoise(position.x, position.z);
         float fixedNoise = (rawNoise + 1f) / 2f;
-       // Debug.Log(rawNoise);
+        // adapt the noise according to its animation curve
+        // in most cases this is 1:1
+        fixedNoise = noisePreset.behaviourCurve.Evaluate(fixedNoise);
+
         // and add it to the height value
-        noiseValue += fixedNoise * noisePreset.heightMult;
+
+        //either using addition (for most noise types)
+        if (noisePreset.blendOption == terrainNoisePreset.blendOptions.Addtion)
+            noiseValue += fixedNoise * noisePreset.heightMult;
+
+
+        // or using multiplication (basically only rivers)
+        else if (noisePreset.blendOption == terrainNoisePreset.blendOptions.Multiplication)
+            noiseValue *= fixedNoise * noisePreset.heightMult;
+
+
+        // now base noise is created lets add some plateaus
+        if (noisePreset.doingPlateau && noisePreset.plateauGap!=0)
+        {
+            noiseValue = ((int)(noiseValue / noisePreset.plateauGap)) * noisePreset.plateauGap;
+        }
 
         return noiseValue;
     }
@@ -40,7 +61,7 @@ public class terrainNoise : MonoBehaviour
     // use this to set the seed
     public static void setSeed(int _seed)
     {
-        noiseGenerator.SetSeed(_seed);
+        seed = _seed;
     }
 
     // this function will set up the different types of noise in the generator

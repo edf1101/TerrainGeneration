@@ -2,32 +2,30 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.Linq; //so we can use summing arrays 
-using TriangleNet.Geometry;// TriangleNet used for triangulation
-using TriangleNet.Topology;
+
 
 [Serializable]
 public class BiomeDataCreator 
 {
-    private List<biomeDescription> theBiomes;  // all biome types
+    private static List<biomeDescription> theBiomes;  // all biome types
     private Vector2 biomeIndex;  // what postion the biome is ie x=0,y=0 is spawn
 
-    private const int blurRad=15; // radius of blur gets changed here
+    private const int blurRad=19; // radius of blur gets changed here
     private  Vector2 TileSize = new Vector2(100, 100); // size of tile this should be const but doesnt work with Vector2
     private const int maxDelaunayWarp = 2; // the delaunay 2d plane gets warped a bit and we need to account for this
 
     // constructor to pass semi important variables
-    public BiomeDataCreator( List<biomeDescription> _theBiomes, Vector2 _biomeIndex) 
+    public BiomeDataCreator(  Vector2 _biomeIndex) 
     {
         biomeIndex = _biomeIndex; 
-        theBiomes = _theBiomes;
 
     }
 
 
     //shader references
-    private ComputeShader biomeCreateShader;
-    private ComputeShader biomeSeperateShader;
-    private ComputeShader biomeBlurShader;
+    private static ComputeShader biomeCreateShader;
+    private static ComputeShader biomeSeperateShader;
+    private static ComputeShader biomeBlurShader;
 
 
     // for debug purposes really can find the blur texture for each biome
@@ -42,14 +40,18 @@ public class BiomeDataCreator
     private RenderTexture myBiomeTex;
 
     // must be run before creating biome so Compute shaders are set
-    public void setShaders(ComputeShader _biomeCreate,ComputeShader _biomeSeperate,ComputeShader _biomeBlur)
+    public static void setShaders(ComputeShader _biomeCreate,ComputeShader _biomeSeperate,ComputeShader _biomeBlur)
     {
         biomeCreateShader = _biomeCreate;
         biomeSeperateShader = _biomeSeperate;
         biomeBlurShader = _biomeBlur;
     }
 
-
+    // must be run before creating biomes so biome list is set
+    public static void setBiomes(List<biomeDescription> _biomes)
+    {
+        theBiomes = _biomes;
+    }
     // this gets run and creates blur textures for all biomes in tile
     public void createBiome()
     {
@@ -118,7 +120,7 @@ public class BiomeDataCreator
             // so it all starts at (0,0,0) needed for referencing from textures/ arrays
             Vector3 correctedVert = vertex + new Vector3(1,0,1)*(blurRad+maxDelaunayWarp);
 
-            Vector3 vertexWorld = vertex + new Vector3(TileSize.x*biomeIndex.x,TileSize.y*biomeIndex.y); //current vertex world position
+            Vector3 vertexWorld = vertex + new Vector3(TileSize.x*biomeIndex.x,0,TileSize.y*biomeIndex.y); //current vertex world position
            
             // the index that we look at in arrays
             int arrayIndex =  (int) ((int)correctedVert.z * (TileSize.y+2*blurRad+2*maxDelaunayWarp)) + (int)(correctedVert.x);

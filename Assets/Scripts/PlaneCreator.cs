@@ -47,7 +47,7 @@ public class PlaneCreator
         if (preMesh == null)
         {
             Vector2[] pointsIn = getPoints(); // get PDS points 
-            Debug.Log("remake");
+            
             Polygon polygon = new Polygon(); // create a polygon for Triangle Library and add PDS points to it
             for (int sampleNum = 0; sampleNum < pointsIn.Length; sampleNum++)
             {

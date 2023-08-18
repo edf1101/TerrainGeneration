@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 472fd8427d71944c79f6b265566ef888, type: 3}
-  m_Name: High Hills
+  m_Name: Small Hills
   m_EditorClassIdentifier: 
-  terrainName: High Hills
-  heightMult: 20
-  frequency: 0.015
-  seedOffset: 10
+  terrainName: Small Hills
+  heightMult: 5
+  frequency: 0.012
+  seedOffset: 1
   octaves: 1
   gain: 1
   lacunarity: 1
   doingPlateau: 0
-  plateauGap: 5
+  plateauGap: 20
   behaviourCurve:
     serializedVersion: 2
     m_Curve:
