@@ -1,0 +1,91 @@
+#pragma kernel CSMain
+
+// buffers for colours coming in and out of the shader
+RWStructuredBuffer<float4> coloursInBuffer; 
+RWStructuredBuffer<float4> coloursOutBuffer; 
+
+// texture mainly for debug purposes
+RWTexture2D<float4> finalTex;
+
+int mapSize; // size of the map so I know we dont overrun the edges
+
+
+int posToIndex(int2 _pos){ // func returning index for each int2 postion
+
+    int index= (_pos.y*mapSize)+_pos.x;
+
+    return index;
+}
+
+
+
+bool isPixBlack(float4 _pix){ // is a pixel empty ignoring alpha
+    return (_pix.x==0 && _pix.y==0 && _pix.z==0);
+}
+
+
+[numthreads(1,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // check id.xy is within bounds of map
+    if(id.x<mapSize && id.y < mapSize && id.x>=0 && id.y>=0){
+       
+        float4 foundColour;
+
+
+        int index=posToIndex(int2(id.x,id.y));
+        float4 currentCol= coloursInBuffer[index]; // get the colour at id.xy
+        
+         
+        if(isPixBlack(currentCol) ){
+
+            // current pixel isnt filled so we need to search
+
+            int closestDist=200; // measured in sqrMag so we dont do sqrt
+            float4 closestCol;
+
+            for(int y=-2;y<2;y++){ // look around in a 2 pixel radius
+
+                for(int x=-2;x<2;x++){
+
+                    // check this offset position is in map size range
+                    if(id.x+x<mapSize && id.x+x>=0 && id.y+y<mapSize && id.y+y>=0)
+                    {
+                        // get pixel in offset place
+                        float4 lookCol=coloursInBuffer[posToIndex(int2(id.x+x,id.y+y))];
+                        if(!isPixBlack(lookCol)){ // if the found pixel isnt empty 
+
+                            int tempDis= (x*x)*(y*y); // calc dist from original pixel to found one
+
+                            // if its closer than the current closest then use it 
+                            if(tempDis<closestDist){
+                                closestDist=tempDis;
+                                closestCol=lookCol;
+                            }
+                        
+                        }   
+                    }
+                
+                }
+
+            }
+            foundColour=closestCol; // replace with closest non empty pixel
+
+
+        }
+        else{
+
+            //current pixel already filled so we just fill it in
+            foundColour=currentCol;
+        }
+
+        // fill in buffers with found colour
+        finalTex[id.xy]=foundColour;
+        coloursOutBuffer[index] = foundColour;
+
+    }
+    
+
+}
+
+

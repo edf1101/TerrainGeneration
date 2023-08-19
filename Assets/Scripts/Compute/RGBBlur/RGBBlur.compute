@@ -1,0 +1,69 @@
+#pragma kernel CSHorizontalBlur
+#pragma kernel CSVerticalBlur
+
+// The output texture for blurred result
+RWTexture2D<float4> OutputTexture;
+
+RWStructuredBuffer<float4> coloursInBufferHor; 
+RWStructuredBuffer<float4> coloursOutBufferHor; 
+
+// The size of the input map
+int mapSize;
+
+// The Gaussian kernel size (must be odd value)
+int KernelSize = 7;
+
+[numthreads(1, 1, 1)]
+void CSHorizontalBlur (uint3 id : SV_DispatchThreadID) {
+
+    int index= (id.y*mapSize) +id.x; // index we'll search
+
+    int halfKernelSize = KernelSize / 2;
+   
+
+    float4 blurColor = float4(0, 0, 0, 0);
+    int Kernels; // as some will be out of frame we only divide at the end by the number we used
+
+    // look around half kernel size unity left and right
+    for (int i = -halfKernelSize; i <= halfKernelSize; ++i) {
+
+        if ((id.x+i)<mapSize && (id.x+i)>=0){ // if its in bounds then add it to the blur
+            int indexOffset = i;
+            Kernels++;
+            blurColor +=   coloursInBufferHor[index+indexOffset];   
+        }
+
+    }
+
+    // modify output textures with the blurred pixel
+    coloursOutBufferHor[index]= blurColor / Kernels;
+    OutputTexture[id.xy] = blurColor / KernelSize;
+}
+
+
+// vertical pass 
+[numthreads(1, 1, 1)]
+void CSVerticalBlur (uint3 id : SV_DispatchThreadID) {
+
+    int halfKernelSize = KernelSize / 2;
+
+    float4 blurColor = float4(0, 0, 0, 0);
+    int Kernels=0;
+
+    // look in halfKernelSize pixels up and down
+    for (int i = -halfKernelSize; i <= halfKernelSize; ++i) {
+
+        if((id.y+i)>=0 && (id.y+i)<mapSize){ // check still in bounds of map
+
+            // if so add it to the blur 
+            int index= (id.y+i)*mapSize +id.x;
+            blurColor += coloursInBufferHor[index]; 
+            Kernels++;
+        }
+    }
+     
+    // update output map with blurred pixel
+    coloursOutBufferHor[(id.y*mapSize)+id.x]= blurColor / Kernels;
+    OutputTexture[id.xy] = blurColor / KernelSize;
+}
+

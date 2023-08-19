@@ -18,6 +18,8 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] private ComputeShader biomeComputeShader;
     [SerializeField] private ComputeShader biomeSeperatorShader;
     [SerializeField] private ComputeShader BBComputeShader;
+    [SerializeField] private ComputeShader FillGapsShader;
+    [SerializeField] private ComputeShader rgbBlurShader;
 
     [Header("Biome/Noise References")]
     // Also reference each biome Type
@@ -49,11 +51,22 @@ public class TerrainManager : MonoBehaviour
     //Gets run first
     private void Start()
     {
+        //set up rgb blur shader
+        rgbBlurComputeHelper.setShader(rgbBlurShader);
+
+        //Set up fillGaps shader
+        FillGapsComputeHelper.setShader(FillGapsShader);
+
         // set the noise presets for the static class firstly
         terrainNoise.setNoisePresets(noisePresets);
+
         // set the default shaders + biomes statically for biomeDataCreatorClass
         BiomeDataCreator.setShaders(biomeComputeShader, biomeSeperatorShader, BBComputeShader);
         BiomeDataCreator.setBiomes(theBiomes);
+        //set the biomes for the colour script too
+        biomeColourCreator.setBiomes(theBiomes);
+
+        //set the terrain material statically
         tileManager.setTerrainMaterial(terrainMaterial);
     }
 

@@ -82,8 +82,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   lowColour:
     serializedVersion: 2
-    key0: {r: 0.8113208, g: 0.7284011, b: 0.54725885, a: 1}
-    key1: {r: 0.8113208, g: 0.7284011, b: 0.54725885, a: 1}
+    key0: {r: 0.9150943, g: 0.80327135, b: 0.60862404, a: 1}
+    key1: {r: 0.9150943, g: 0.80327135, b: 0.60862404, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   normalColour:
     serializedVersion: 2
     key0: {r: 0.31003463, g: 0.3773585, b: 0.26877892, a: 1}
-    key1: {r: 0.31003463, g: 0.3773585, b: 0.26877892, a: 1}
+    key1: {r: 0.27306578, g: 0.38679248, b: 0.20616768, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}

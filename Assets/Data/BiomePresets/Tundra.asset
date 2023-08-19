@@ -24,7 +24,7 @@ MonoBehaviour:
   steepColour:
     serializedVersion: 2
     key0: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
-    key1: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
+    key1: {r: 0.254717, g: 0.23796868, b: 0.22227661, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   normalColour:
     serializedVersion: 2
     key0: {r: 0.92941177, g: 0.9490196, b: 0.9843137, a: 1}
-    key1: {r: 0.92941177, g: 0.9490196, b: 0.9843137, a: 1}
+    key1: {r: 0.7732289, g: 0.8205259, b: 0.9056604, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}

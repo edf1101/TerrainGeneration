@@ -157,6 +157,7 @@ MonoBehaviour:
   biomeComputeShader: {fileID: 7200000, guid: 24a95942c92a14339b2809025e9693a6, type: 3}
   biomeSeperatorShader: {fileID: 7200000, guid: a81f73e15032847dc841c492aa7f1388, type: 3}
   BBComputeShader: {fileID: 7200000, guid: 0718d0dd91cca40c2a5badcf606dba90, type: 3}
+  FillGapsShader: {fileID: 7200000, guid: af8d445f164984a528c223b9f9678cb0, type: 3}
   theBiomes:
   - {fileID: 11400000, guid: 92fb9e5e0bd074b7eb76eb5ed033b6da, type: 2}
   - {fileID: 11400000, guid: 35f199d00bac1425385d6abdeedb2712, type: 2}
