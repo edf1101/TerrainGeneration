@@ -46,7 +46,7 @@ public class terrainNoise : MonoBehaviour
 
         // or using multiplication (basically only rivers)
         else if (noisePreset.blendOption == terrainNoisePreset.blendOptions.Multiplication)
-            noiseValue *= fixedNoise * noisePreset.heightMult;
+            noiseValue = fixedNoise;
 
 
         // now base noise is created lets add some plateaus
@@ -56,6 +56,25 @@ public class terrainNoise : MonoBehaviour
         }
 
         return noiseValue;
+    }
+
+
+    public static float totalNoise(Vector3 position , Dictionary<string,float> typeWeights)
+    {
+
+        float heightValue=0;
+        float finalMult = 1;
+        foreach (KeyValuePair<string, float> dataPair in typeWeights)
+        {
+            if (noisePresets[dataPair.Key].blendOption == terrainNoisePreset.blendOptions.Addtion)
+            heightValue += terrainNoise.GetNoise(position, dataPair.Key) * dataPair.Value;
+            else
+            {
+                finalMult*= (terrainNoise.GetNoise(position, dataPair.Key)+(1- dataPair.Value));
+            }
+        }
+        finalMult = Mathf.Clamp01(finalMult);   
+        return heightValue*finalMult;
     }
 
     // use this to set the seed

@@ -352,11 +352,12 @@ public class BiomeDataCreator
 
         float heightValue = 0; // initial height is 0
 
-        foreach (KeyValuePair<string, float> dataPair in terrainTypeWeight)
-        {
-            // part below is commented out because I havent made that script yet but principle works
-            heightValue += terrainNoise.GetNoise(vertexWorld, dataPair.Key) * dataPair.Value;
-        }
+        /* foreach (KeyValuePair<string, float> dataPair in terrainTypeWeight)
+         {
+             // part below is commented out because I havent made that script yet but principle works
+             heightValue += terrainNoise.GetNoise(vertexWorld, dataPair.Key) * dataPair.Value;
+         }*/
+        heightValue= terrainNoise.totalNoise(vertexWorld, terrainTypeWeight);
         return heightValue;
     }
 

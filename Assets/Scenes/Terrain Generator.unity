@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.81568635, g: 0.81568635, b: 0.81568635, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.003
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -172,6 +172,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c33a2b9a972834866a6818d62bfb7f7d, type: 2}
   - {fileID: 11400000, guid: 5ee6907d6ed7c4bddb5047854b544479, type: 2}
   - {fileID: 11400000, guid: 6ce254973af7a4385aae6626ba5d2191, type: 2}
+  - {fileID: 11400000, guid: f448ce66955eb43bc8ed6eb36c9e83ed, type: 2}
   terrainMaterial: {fileID: 2100000, guid: e22e83a93e69b4953b0bddbadd070aca, type: 2}
   debugging: 0
 --- !u!4 &120618847
