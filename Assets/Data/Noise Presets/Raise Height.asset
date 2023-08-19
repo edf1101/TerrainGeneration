@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Raise Height
   m_EditorClassIdentifier: 
   terrainName: Raise Height
-  heightMult: 5
+  heightMult: 3
   frequency: 0.012
   seedOffset: 1
   octaves: 1

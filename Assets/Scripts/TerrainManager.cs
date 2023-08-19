@@ -81,12 +81,25 @@ public class TerrainManager : MonoBehaviour
         if (currentTile != lastTile || currentTile== Vector2.zero) 
         {
             lastTile = currentTile;
-            if (!tilesFound.ContainsKey(currentTile)) 
+
+            // do edges as well
+            for(int x = (int)currentTile.x - 1; x <= currentTile.x + 1; x++)
             {
-                // we found an unmade tile lets make it
-                createTile(currentTile);
-                tilesFound.Add(currentTile, true);
+                for (int y = (int)currentTile.y - 1; y <= currentTile.y + 1; y++)
+                {
+                    Vector2 searchTile = new Vector2(x, y);
+
+                    if (!tilesFound.ContainsKey(searchTile))
+                    {
+                        // we found an unmade tile lets make it
+                        createTile(searchTile);
+                        tilesFound.Add(searchTile, true);
+                    }
+                }
+
             }
+
+          
         }
     }
 

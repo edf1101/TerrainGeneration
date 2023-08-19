@@ -28,6 +28,7 @@ public class tileManager : MonoBehaviour
         // Add the required components to the tile
         gameObject.AddComponent<MeshFilter>();
         gameObject.AddComponent<MeshRenderer>();
+        gameObject.AddComponent<MeshCollider>();
 
         //Set up Vector2 index and BiomeDataCreator class for this tile
         tilePosition = _tilePos;
@@ -59,7 +60,8 @@ public class tileManager : MonoBehaviour
         // set the mesh to the gameobject
         GetComponent<MeshRenderer>().material = terrainMaterial;
         GetComponent<MeshFilter>().mesh = tileMesh;
+        GetComponent<MeshCollider>().sharedMesh = tileMesh;
 
-      
+
     }
 }
