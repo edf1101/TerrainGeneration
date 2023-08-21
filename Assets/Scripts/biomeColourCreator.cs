@@ -5,11 +5,27 @@ using UnityEngine;
 public class biomeColourCreator 
 {
 
+    // Actual mapSize because the one below is including offsets / clearance
+    private Vector2 tileSize = new Vector2(100, 100);
+
     // Threshhold data for what we consider to be special terrain
-    private const float highThresh = 40;
-    private const float lowThresh = 1;
-    private const float steepThresh = 0.5f;
-    private const float slightThresh = 0.2f;
+    private const float highThresh = 30;
+    private const float lowThresh = 1.2f;
+    private const float steepThresh = 0.4f;
+    private const float slightThresh = 0.1f;
+
+
+    // Thresholds for object placement
+    private static Vector2 heightRange;
+    private static float maxGradient;
+
+    // Setter for above private variables
+
+    public static void setObjectPlacementThresholds(Vector2 _heightRange,float _maxGrad)
+    {
+        heightRange = _heightRange;
+        maxGradient = _maxGrad;
+    }
 
     // this is a colour map of the special colours eg steep slopes, high point
     // basically anything except normal ground
@@ -46,6 +62,20 @@ public class biomeColourCreator
         biomeIndexes = _biomeIndexes;
     }
 
+    /*
+     * for Object Placement script we need to know whether a tile is an acceptable
+     * location to put objects on or not. We need height and gradient data for this.
+     * We already do the calculations here so It makes sense to just reuse this data
+     * rather than do it again in a different script wasting time
+     */
+    private Color[] acceptableObjectPlacement;
+
+    // Getter for private Color[] acceptableObjectPlacement
+    public Color[] getAcceptables()
+    {
+        return acceptableObjectPlacement;
+    }
+
     // this creates Actual colors for the special points( high ,steep etc) in the map
     // although it only creates the points at a vertex or addtional point so lots of
     // blank space in color map hence only partial
@@ -68,7 +98,8 @@ public class biomeColourCreator
         specialPartialMap = new Color[blurTexSize * blurTexSize];
 
 
-
+        // only interested in the 100*100 square for object placement
+        acceptableObjectPlacement = new Color[(int)(tileSize.x * tileSize.y)];
 
         // go through each vertex
         for (int vertIndex = 0; vertIndex < verts.Length; vertIndex++)
@@ -89,6 +120,20 @@ public class biomeColourCreator
 
             // and set that colour in the array
             specialPartialMap[(Mathf.RoundToInt(actualPos.z) * blurTexSize) + Mathf.RoundToInt(actualPos.x)] = biomeCol;
+
+
+            // deal with acceptable object position array
+            if( currentVert.x>0 && currentVert.x<tileSize.x && currentVert.z>0 && currentVert.z < tileSize.y)
+            {
+                int index = (int)((int)currentVert.z * tileSize.x) + (int)currentVert.x;
+                bool acceptable = HeightVal < heightRange.y && HeightVal > heightRange.x && normalVal < maxGradient;
+                if (acceptable)
+                    acceptableObjectPlacement[index] = Color.green; // green is good
+                else
+                    acceptableObjectPlacement[index]= Color.red; // red is bad
+            }
+
+
 
         }
 
@@ -123,7 +168,7 @@ public class biomeColourCreator
         int blurTexSize = mapSize + 2 * blurRadius; // calculate texture size
        
         Color[] cols = new Color[blurTexSize * blurTexSize]; // blank array
-
+        biomeDescription myBiome= theBiomes[biomeIndexes[1000]];
         for(int y=0;y<blurTexSize;y++)
         {
 
@@ -133,7 +178,7 @@ public class biomeColourCreator
                 Vector3 _pos = new Vector3(x,0,y) + new Vector3(1, 0, 1) * blurRadius;
 
                 //get the biome we must be in
-                biomeDescription myBiome = theBiomes[biomeIndexes[BiomeDataCreator.vertToIndex(_pos)]];
+                     myBiome = theBiomes[biomeIndexes[BiomeDataCreator.vertToIndex(_pos)]];
 
                 //add that current biome to the color map
                 cols[(y * blurTexSize) + x] = myBiome.normalColour.Evaluate(Random.Range(0,1));

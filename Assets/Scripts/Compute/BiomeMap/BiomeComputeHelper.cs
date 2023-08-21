@@ -7,13 +7,20 @@ public class BiomeComputeHelper
    private ComputeShader myComputeShader;
 
     private List<biomeDescription> biomesIn;
-    private const float noiseFreq=0.002f;
+    private const float noiseFreq=0.0006f;
     private Vector2 positionOffset;
     private Vector2 mapSize;
 
     private RenderTexture colourMap;
 
     private int[] biomeIndexes;
+
+    // seeds make the random maps different each seed
+    private static int seed;
+    public static void setSeed(int _seed) // setter for private variable seed
+    {
+        seed = _seed;
+    }
 
     private int [] biomesFound; // cant use bool as not blittable so either 1 or 0
 
@@ -38,6 +45,7 @@ public class BiomeComputeHelper
          
         // set data needed for shader
         myComputeShader.SetInt("biomeNums", biomesIn.Count);
+        myComputeShader.SetInt("seed", seed);
         myComputeShader.SetFloat("noiseFrequency", noiseFreq);
         myComputeShader.SetVector("positionOffset", positionOffset);
         myComputeShader.SetVector("mapSize", mapSize);

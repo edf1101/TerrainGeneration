@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aadea95d0d1ce485a9f46b5c58f31df3, type: 3}
-  m_Name: Tundra
+  m_Name: Forest
   m_EditorClassIdentifier: 
-  biomeName: Tundra
-  id: 2
+  biomeName: Forest
+  id: 5
   terrainGenTypes:
-  - Med Hills
-  - Mountains
+  - Small Hills
   - Detail
-  tempRange: {x: 0, y: 0.3}
-  humRange: {x: 0, y: 1}
-  debugColour: {r: 0.86743504, g: 0.9427837, b: 0.9528302, a: 1}
+  - Rivers
+  tempRange: {x: 0.3, y: 0.7}
+  humRange: {x: 0.55, y: 0.85}
+  debugColour: {r: 0.08289608, g: 0.5471698, b: 0.028390888, a: 1}
   steepColour:
     serializedVersion: 2
-    key0: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
-    key1: {r: 0.254717, g: 0.23796868, b: 0.22227661, a: 1}
+    key0: {r: 0.33962262, g: 0.32528058, b: 0.3155927, a: 1}
+    key1: {r: 0.33962262, g: 0.32528058, b: 0.3155927, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -53,8 +53,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   steepSomewhatColour:
     serializedVersion: 2
-    key0: {r: 0.6714578, g: 0.7328637, b: 0.745283, a: 1}
-    key1: {r: 0.6714578, g: 0.7328637, b: 0.745283, a: 1}
+    key0: {r: 0.254717, g: 0.22499214, b: 0.18863475, a: 1}
+    key1: {r: 0.254717, g: 0.22499214, b: 0.18863475, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -83,8 +83,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   lowColour:
     serializedVersion: 2
-    key0: {r: 0.8584906, g: 0.8571984, b: 0.77345145, a: 1}
-    key1: {r: 0.8584906, g: 0.8571984, b: 0.77345145, a: 1}
+    key0: {r: 0.9150943, g: 0.80327135, b: 0.60862404, a: 1}
+    key1: {r: 0.9150943, g: 0.80327135, b: 0.60862404, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -113,8 +113,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   highColour:
     serializedVersion: 2
-    key0: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
-    key1: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
+    key0: {r: 0.6183695, g: 0.6792453, b: 0.630802, a: 1}
+    key1: {r: 0.6183695, g: 0.6792453, b: 0.630802, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -143,8 +143,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   normalColour:
     serializedVersion: 2
-    key0: {r: 0.92941177, g: 0.9490196, b: 0.9843137, a: 1}
-    key1: {r: 0.7732289, g: 0.8205259, b: 0.9056604, a: 1}
+    key0: {r: 0.31003463, g: 0.3773585, b: 0.26877892, a: 1}
+    key1: {r: 0.27306578, g: 0.38679248, b: 0.20616768, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -171,3 +171,21 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  treePercentage: 0.5
+  treeObjects:
+  - {fileID: 117604, guid: 9469bb1d3aa88ca40aa4079e96a27f8e, type: 3}
+  - {fileID: 151190, guid: a9cc5585b9634a9449920c03ec6bc243, type: 3}
+  - {fileID: 142018, guid: d537224908c5f444f86c9e57e0c7234c, type: 3}
+  - {fileID: 104588, guid: 702740a5e4ac1ee40a1888d3b62faa91, type: 3}
+  - {fileID: 111494, guid: 62724a8cd2495b14f930b7129c3bc47b, type: 3}
+  - {fileID: 188972, guid: 7641c7e8354e2c44cab6432d9d2c6d1b, type: 3}
+  - {fileID: 115084, guid: 7c5aafe3fe2c6ef4a9150f7f44653760, type: 3}
+  - {fileID: 127550, guid: 87a6cef862ce2cb4a88c5ca5d5af5d2b, type: 3}
+  - {fileID: 168064, guid: fb8ae0828a555f74996970b8d0495f15, type: 3}
+  - {fileID: 116970, guid: 38ade0ba7c293f14a9b1b610879e9390, type: 3}
+  - {fileID: 188992, guid: 11d469914a0208343b39f04223416f9c, type: 3}
+  - {fileID: 147220, guid: 446fc4730aadcd04985c8dafaaf0c501, type: 3}
+  - {fileID: 112728, guid: 069e1e44b643edc4fb4a9d4311a78fb7, type: 3}
+  - {fileID: 151792, guid: 1e4e7284c1efd5f4eb702c799353072c, type: 3}
+  clearingThresh: 0.3
+  extraTreeHeight: 0.7

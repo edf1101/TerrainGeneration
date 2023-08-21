@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-//using System.Diagnostics;// used for stopwatch
 using TriangleNet.Geometry;// TriangleNet used for triangulation
 using TriangleNet.Topology;
 

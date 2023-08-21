@@ -31,6 +31,11 @@ public class terrainNoisePreset : ScriptableObject
     public float plateauGap=20; // the interval for plateaus
 
 
+    //Holds Dune Settings
+    [Header("Dune Settings")]
+    public bool isDune = false;
+
+
     // Holds advanced settings
     [Header("Advanced Settings")]
     // This curve maps how input values go to output values

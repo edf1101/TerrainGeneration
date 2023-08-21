@@ -16,11 +16,12 @@ MonoBehaviour:
   heightMult: 20
   frequency: 0.015
   seedOffset: 10
-  octaves: 1
-  gain: 1
-  lacunarity: 1
+  octaves: 3
+  gain: 0.5
+  lacunarity: 2
   doingPlateau: 0
   plateauGap: 5
+  isDune: 0
   behaviourCurve:
     serializedVersion: 2
     m_Curve:

@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 472fd8427d71944c79f6b265566ef888, type: 3}
+  m_Name: Large Rivers 1
+  m_EditorClassIdentifier: 
+  terrainName: Large Rivers
+  heightMult: 1
+  frequency: 0.003
+  seedOffset: 5
+  octaves: 1
+  gain: 1
+  lacunarity: 1
+  doingPlateau: 0
+  plateauGap: 20
+  behaviourCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.004166667
+      value: 0.9976415
+      inSlope: -0.18392
+      outSlope: -0.18392
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.25140554
+    - serializedVersion: 3
+      time: 0.30565137
+      value: 0.9669947
+      inSlope: -0.35162702
+      outSlope: -0.35162702
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.4376865
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.3551579
+      value: 0.015273988
+      inSlope: -1.1816951
+      outSlope: -1.1816951
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11006755
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4125061
+      value: 0.009433985
+      inSlope: 0.28469804
+      outSlope: 0.28469804
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.22665899
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.47846752
+      value: 0.9724595
+      inSlope: 0.19676773
+      outSlope: 0.19676773
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.36738762
+    - serializedVersion: 3
+      time: 0.97499996
+      value: 0.990566
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  blendOption: 1

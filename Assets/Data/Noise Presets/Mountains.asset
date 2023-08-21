@@ -13,31 +13,41 @@ MonoBehaviour:
   m_Name: Mountains
   m_EditorClassIdentifier: 
   terrainName: Mountains
-  heightMult: 40
-  frequency: 0.01
+  heightMult: 50
+  frequency: 0.006
   seedOffset: 12
-  octaves: 5
-  gain: 0.7
+  octaves: 4
+  gain: 0.5
   lacunarity: 2
   doingPlateau: 0
   plateauGap: 20
+  isDune: 0
   behaviourCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: -0.008333334
+      value: 0.025943397
+      inSlope: 0.16981131
+      outSlope: 0.16981131
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.24134448
     - serializedVersion: 3
-      time: 0.64757466
-      value: 0.20561369
-      inSlope: 0.75268435
-      outSlope: 0.75268435
+      time: 0.5364092
+      value: 0.20108499
+      inSlope: 1.0162916
+      outSlope: 1.0162916
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7867257
+      value: 0.54256445
+      inSlope: 1.0817845
+      outSlope: 1.0817845
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334

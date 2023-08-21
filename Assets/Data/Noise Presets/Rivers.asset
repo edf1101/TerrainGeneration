@@ -34,17 +34,26 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.25140554
     - serializedVersion: 3
-      time: 0.3639847
-      value: 0.97171164
-      inSlope: -0.35162702
-      outSlope: -0.35162702
+      time: 0.11092465
+      value: 0.9795028
+      inSlope: -0.6679875
+      outSlope: -0.6679875
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.4376865
+      inWeight: 1
+      outWeight: 0.67211175
+    - serializedVersion: 3
+      time: 0.31815138
+      value: 0.48586267
+      inSlope: -0.40828323
+      outSlope: -0.40828323
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.71850246
       outWeight: 1
     - serializedVersion: 3
-      time: 0.40932456
-      value: 0.18980229
+      time: 0.36765787
+      value: 0.0034815352
       inSlope: -1.1816951
       outSlope: -1.1816951
       tangentMode: 0
@@ -52,7 +61,7 @@ MonoBehaviour:
       inWeight: 0.11006755
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.4125061
+      time: 0.39583942
       value: 0.009433985
       inSlope: 0.28469804
       outSlope: 0.28469804
@@ -61,22 +70,31 @@ MonoBehaviour:
       inWeight: 0.22665899
       outWeight: 0
     - serializedVersion: 3
-      time: 0.47846752
-      value: 0.9724595
-      inSlope: 0.19676773
-      outSlope: 0.19676773
+      time: 0.45831135
+      value: 0.49986553
+      inSlope: 0.40217793
+      outSlope: 0.40217793
       tangentMode: 0
       weightedMode: 0
       inWeight: 1
-      outWeight: 0.36738762
+      outWeight: 0.62073284
+    - serializedVersion: 3
+      time: 0.79096746
+      value: 0.9889689
+      inSlope: 0.050749235
+      outSlope: 0.050749235
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.7766789
     - serializedVersion: 3
       time: 0.97499996
       value: 0.990566
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.25157216
+      outSlope: 0.25157216
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.5359711
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

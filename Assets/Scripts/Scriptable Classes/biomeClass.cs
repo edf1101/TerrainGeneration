@@ -24,6 +24,12 @@ public class biomeDescription : ScriptableObject
     public Gradient lowColour; // usually for underwater or beach
     public Gradient highColour; // for high up eg mountain top
     public Gradient normalColour; // for flat terrain etc
+
+    [Header("Object settings")]
+    public float treePercentage;
+    public GameObject[] treeObjects;
+    public float clearingThresh; // for object to be placed noise must be above this
+    public float extraTreeHeight;
 }
 
 

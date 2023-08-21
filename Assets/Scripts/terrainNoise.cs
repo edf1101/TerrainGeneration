@@ -26,6 +26,8 @@ public class terrainNoise : MonoBehaviour
         noiseGenerator.SetFrequency(noisePreset.frequency);
 
         //set noise generator to use fractal features
+        noiseGenerator.SetFractalType(FastNoiseLite.FractalType.FBm);
+       
         noiseGenerator.SetFractalGain(noisePreset.gain);
         noiseGenerator.SetFractalLacunarity(noisePreset.lacunarity);
         noiseGenerator.SetFractalOctaves(noisePreset.octaves);
@@ -53,6 +55,12 @@ public class terrainNoise : MonoBehaviour
         if (noisePreset.doingPlateau && noisePreset.plateauGap!=0)
         {
             noiseValue = ((int)(noiseValue / noisePreset.plateauGap)) * noisePreset.plateauGap;
+        }
+
+        //treat it as a dune
+        if (noisePreset.isDune)
+        {
+            noiseValue = Mathf.Pow(Mathf.Sin(position.x * noisePreset.frequency),2)*noisePreset.heightMult;
         }
 
         return noiseValue;

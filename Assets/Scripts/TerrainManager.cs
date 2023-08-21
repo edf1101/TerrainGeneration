@@ -32,7 +32,9 @@ public class TerrainManager : MonoBehaviour
     [Header("Other Settings")]
     // The terrain needs a specific material that uses vertex colours
     [SerializeField] private Material terrainMaterial;
-    [SerializeField] private bool debugging;
+    [SerializeField] private bool debugging; // do we debug?
+    [SerializeField] private int seed; // seed for different maps
+    [SerializeField] private static int terrainLayer;
 
     // This dictionary holds whether a tile is made for each vector 2
     // no point in the bool really as if the key exists it will be true
@@ -47,6 +49,11 @@ public class TerrainManager : MonoBehaviour
     // This dictionary holds a reference to each tile by its index
     // useful so we can find them all quickly at a later point
     private Dictionary<Vector2, GameObject> tileReferences = new Dictionary<Vector2, GameObject>();
+
+    public static int getTerrainLayer() // getter for private variable terrainLayer
+    {
+        return terrainLayer;
+    }
 
     //Gets run first
     private void Start()
@@ -63,11 +70,17 @@ public class TerrainManager : MonoBehaviour
         // set the default shaders + biomes statically for biomeDataCreatorClass
         BiomeDataCreator.setShaders(biomeComputeShader, biomeSeperatorShader, BBComputeShader);
         BiomeDataCreator.setBiomes(theBiomes);
+        BiomeDataCreator.setSeed(seed);
+        terrainNoise.setSeed(seed);
         //set the biomes for the colour script too
         biomeColourCreator.setBiomes(theBiomes);
 
         //set the terrain material statically
         tileManager.setTerrainMaterial(terrainMaterial);
+
+        //set up object placement class
+        objectPlacement.setBiomes(theBiomes);
+        objectPlacement.createPoissonPoints();
     }
 
 
@@ -119,10 +132,16 @@ public class TerrainManager : MonoBehaviour
         // set it to its new world position
         newTile.transform.position = new Vector3(_mapPosition.x, 0, _mapPosition.y) * mapSize;
 
+        newTile.layer = terrainLayer; // set the layer of tiles
+
         //add then run tileManager component
         newTile.AddComponent<tileManager>();
         newTile.GetComponent<tileManager>().createTile(_mapPosition);
         tileReferences.Add(_mapPosition, newTile);
+    }
+    public static GameObject doInstanstiate(GameObject _g)
+    {
+        return Instantiate(_g);
     }
 
 }

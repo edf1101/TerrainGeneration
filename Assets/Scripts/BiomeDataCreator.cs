@@ -7,6 +7,17 @@ using System.Linq; //so we can use summing arrays
 [Serializable]
 public class BiomeDataCreator 
 {
+
+    // seed for biome generator compute shader
+    private static int seed = 100;
+
+    // need a getter as this is private
+    public static void setSeed(int _seed)
+    {
+        seed = _seed;
+    }
+
+
     private static List<biomeDescription> theBiomes;  // all biome types
     private Vector2 biomeIndex;  // what postion the biome is ie x=0,y=0 is spawn
 
@@ -79,9 +90,10 @@ public class BiomeDataCreator
     public void createBiome()
     {
         // genrating map size according to blur + tile Size
-        Vector2 mapSize = TileSize + Vector2.one * blurRad * 2 + Vector2.one* moreClearance * 2; 
+        Vector2 mapSize = TileSize + Vector2.one * blurRad * 2 + Vector2.one* moreClearance * 2;
 
         //create the base biome map
+        BiomeComputeHelper.setSeed(seed);
         BiomeComputeHelper BCHelper = new BiomeComputeHelper(biomeCreateShader, mapSize, biomeIndex * TileSize - Vector2.one * blurRad - Vector2.one * moreClearance, theBiomes);
         BCHelper.createBiomes();
 

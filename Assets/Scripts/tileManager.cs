@@ -21,10 +21,11 @@ public class tileManager : MonoBehaviour
     private BiomeDataCreator BDC;
 
     private biomeColourCreator BCC;
+    private objectPlacement OP;
 
     public void createTile(Vector2 _tilePos)
-    {
-       
+    { 
+
         // Add the required components to the tile
         gameObject.AddComponent<MeshFilter>();
         gameObject.AddComponent<MeshRenderer>();
@@ -62,6 +63,19 @@ public class tileManager : MonoBehaviour
         GetComponent<MeshFilter>().mesh = tileMesh;
         GetComponent<MeshCollider>().sharedMesh = tileMesh;
 
+
+        // create object holder
+        GameObject objHolder = new GameObject();
+        objHolder.transform.parent = transform;
+        objHolder.name = "Object Holder";
+
+
+        OP = new objectPlacement(BCC.getAcceptables());
+        OP.setTileIndex(tilePosition);
+        OP.setObjectHolder(objHolder.transform);
+        OP.setBiomeArray(BDC.getBiomeIndexes());
+        OP.createObjects();
+        debugRT = BDC.getBiomeMap();
 
     }
 }
