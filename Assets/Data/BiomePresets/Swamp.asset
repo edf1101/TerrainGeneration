@@ -84,8 +84,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   lowColour:
     serializedVersion: 2
-    key0: {r: 0.26415092, g: 0.20108442, b: 0.088465646, a: 1}
-    key1: {r: 0.5566038, g: 0.45010316, b: 0.25992346, a: 1}
+    key0: {r: 0.6509434, g: 0.6509434, b: 0.5496173, a: 1}
+    key1: {r: 0.6792453, g: 0.5564595, b: 0.24029905, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 65150
+    ctime1: 65535
     ctime2: 0
     ctime3: 0
     ctime4: 0
@@ -181,5 +181,19 @@ MonoBehaviour:
   - {fileID: 160606, guid: 5c3cbac9d5eae3844a928d36e6dbd1a6, type: 3}
   - {fileID: 160606, guid: 5c3cbac9d5eae3844a928d36e6dbd1a6, type: 3}
   - {fileID: 160606, guid: 5c3cbac9d5eae3844a928d36e6dbd1a6, type: 3}
+  - {fileID: 160606, guid: 5c3cbac9d5eae3844a928d36e6dbd1a6, type: 3}
   clearingThresh: 0.1
   extraTreeHeight: 0
+  objectPercentage: 0.2
+  objectObjects:
+  - {fileID: 1493958779012120596, guid: b9de24523a11d714db3851b5f0f9d527, type: 3}
+  - {fileID: 131104, guid: 2222b58a5f6dde443bd027bc9bdf5d1d, type: 3}
+  - {fileID: 3356751432538110193, guid: ffbddc4ef9676cc419e81e06aaa836d8, type: 3}
+  - {fileID: 8903058273634794869, guid: f1fc5bb90ac285e4486771552d63bcb8, type: 3}
+  - {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
+  - {fileID: 117896, guid: 2150293d12bfb2448a976624bc72a6f2, type: 3}
+  - {fileID: 3356751432538110193, guid: ffbddc4ef9676cc419e81e06aaa836d8, type: 3}
+  - {fileID: 4385080170328260021, guid: ff62b58c5a9ea164fa8ddf8038e10cd1, type: 3}
+  - {fileID: 5440707293445505367, guid: 494f6d43e170e9145bc7865d243ee00b, type: 3}
+  - {fileID: 5440707293445505367, guid: 494f6d43e170e9145bc7865d243ee00b, type: 3}
+  - {fileID: 5440707293445505367, guid: 494f6d43e170e9145bc7865d243ee00b, type: 3}

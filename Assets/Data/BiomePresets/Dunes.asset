@@ -84,8 +84,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   lowColour:
     serializedVersion: 2
-    key0: {r: 1, g: 0.97460085, b: 0.8349056, a: 1}
-    key1: {r: 1, g: 0.97460085, b: 0.8349056, a: 1}
+    key0: {r: 0.6509434, g: 0.6509434, b: 0.5496173, a: 1}
+    key1: {r: 0.6792453, g: 0.5564595, b: 0.24029905, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -178,3 +178,15 @@ MonoBehaviour:
   - {fileID: 176278, guid: 3c74caa0496b18d4ba0a1009ebb4c992, type: 3}
   clearingThresh: 0.9
   extraTreeHeight: 0
+  objectPercentage: 0.003
+  objectObjects:
+  - {fileID: 124032, guid: 45b8cac9ed2e6a142ae411672ba866f9, type: 3}
+  - {fileID: 136472, guid: e9ef501c03d9e0f4f8965162fd6bfbba, type: 3}
+  - {fileID: 116276, guid: 689a36ce1e8152f488b3a0d5fc644805, type: 3}
+  - {fileID: 178436, guid: 587331bb58ede6149bd7d31473a36202, type: 3}
+  - {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
+  - {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
+  - {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
+  - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}
+  - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}
+  - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}

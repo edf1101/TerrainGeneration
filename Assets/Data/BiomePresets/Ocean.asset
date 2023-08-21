@@ -83,8 +83,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   lowColour:
     serializedVersion: 2
-    key0: {r: 0.8490566, g: 0.7992804, b: 0.500623, a: 1}
-    key1: {r: 0.8490566, g: 0.7992804, b: 0.500623, a: 1}
+    key0: {r: 0.6509434, g: 0.6509434, b: 0.5496173, a: 1}
+    key1: {r: 0.6792453, g: 0.5564595, b: 0.24029905, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -175,3 +175,5 @@ MonoBehaviour:
   treeObjects: []
   clearingThresh: 1
   extraTreeHeight: 0
+  objectPercentage: 0
+  objectObjects: []

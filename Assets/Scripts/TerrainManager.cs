@@ -34,12 +34,13 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] private Material terrainMaterial;
     [SerializeField] private bool debugging; // do we debug?
     [SerializeField] private int seed; // seed for different maps
+    [SerializeField] private bool randomiseSeed;
     [SerializeField] private static int terrainLayer;
 
     // This dictionary holds whether a tile is made for each vector 2
     // no point in the bool really as if the key exists it will be true
-    // we use it by doing tilesFound.ContainsKey(pos)
-    private Dictionary<Vector2, bool> tilesFound = new Dictionary<Vector2, bool>();
+    // we use it by doing tilesMade.ContainsKey(pos)
+    private Dictionary<Vector2, bool> tilesMade = new Dictionary<Vector2, bool>();
 
     // this shouldnt ever be changed but nice to be a variable in case it is!
     private const int mapSize=100;
@@ -50,6 +51,8 @@ public class TerrainManager : MonoBehaviour
     // useful so we can find them all quickly at a later point
     private Dictionary<Vector2, GameObject> tileReferences = new Dictionary<Vector2, GameObject>();
 
+    [SerializeField] private float renderDistance=1; // render dist outside of current tile
+
     public static int getTerrainLayer() // getter for private variable terrainLayer
     {
         return terrainLayer;
@@ -58,6 +61,8 @@ public class TerrainManager : MonoBehaviour
     //Gets run first
     private void Start()
     {
+        if (randomiseSeed)
+            seed = Random.Range(0, 100);
         //set up rgb blur shader
         rgbBlurComputeHelper.setShader(rgbBlurShader);
 
@@ -93,28 +98,48 @@ public class TerrainManager : MonoBehaviour
         // if the tile has changed recently or if its (0,0) as this doesnt register on start
         if (currentTile != lastTile || currentTile== Vector2.zero) 
         {
-            lastTile = currentTile;
-
-            // do edges as well
-            for(int x = (int)currentTile.x - 1; x <= currentTile.x + 1; x++)
+            lastTile = currentTile; // update what tile im on
+            
+            for (int x = -5; x <= 5; x++)
             {
-                for (int y = (int)currentTile.y - 1; y <= currentTile.y + 1; y++)
+                for (int y = -5; y <= 5; y++)
                 {
-                    Vector2 searchTile = new Vector2(x, y);
+                    // go through all nearby (within 5) tiles
+                    // if its within render distance
+                    if ((x * x) + (y * y) <= (renderDistance * renderDistance))
+                        enableTile(new Vector2(x, y) + currentTile); // its within dist so enable it
+                    else
+                        disableTile(new Vector2(x, y) + currentTile); // too far disable it
 
-                    if (!tilesFound.ContainsKey(searchTile))
-                    {
-                        // we found an unmade tile lets make it
-                        createTile(searchTile);
-                        tilesFound.Add(searchTile, true);
-                    }
                 }
-
             }
+           
+           
 
-          
         }
     }
+
+    private void enableTile(Vector2 _tileIndex) // activates tile if made creates new if not made yet
+    {
+        if (tilesMade.ContainsKey(_tileIndex))
+        {
+            tileReferences[_tileIndex].SetActive(true);
+        }
+        else
+        {
+            createTile(_tileIndex);
+        }
+    }
+
+    private void disableTile(Vector2 _tileIndex) // disable tile if its made
+    {
+        if (tilesMade.ContainsKey(_tileIndex))
+        {
+            tileReferences[_tileIndex].SetActive(false);
+        }
+        
+    }
+
 
     private void createTile(Vector2 _mapPosition)
     {
@@ -138,6 +163,7 @@ public class TerrainManager : MonoBehaviour
         newTile.AddComponent<tileManager>();
         newTile.GetComponent<tileManager>().createTile(_mapPosition);
         tileReferences.Add(_mapPosition, newTile);
+        tilesMade.Add(_mapPosition, true);
     }
     public static GameObject doInstanstiate(GameObject _g)
     {

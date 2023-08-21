@@ -41,7 +41,8 @@ public class playerController : MonoBehaviour
     }
 
     // store our current velocity so we dont have to keep getting it from rigidbody
-    private Vector3 currentVelocity; 
+    private Vector3 currentVelocity;
+    private Vector3 aimMovementVector;
 
     // Update is called once per frame
     private void Update()
@@ -80,7 +81,7 @@ public class playerController : MonoBehaviour
 
             // We then move in the new forward direction * forward input then
             // in right direction * right input then add Vector3.up * depth (up/down)
-            Vector3 aimMovementVector = (newF * Input.GetAxis("Vertical") + newR * Input.GetAxis("Horizontal") + Vector3.up * Input.GetAxis("Depth")).normalized * 1 * motionSpeed;
+             aimMovementVector = (newF * Input.GetAxis("Vertical") + newR * Input.GetAxis("Horizontal") + Vector3.up * Input.GetAxis("Depth")).normalized * 1 * motionSpeed;
 
             // current veclocity should be an interpolation between current veclocity
             // and aim velocity this should make it a smooth velocity
@@ -103,5 +104,14 @@ public class playerController : MonoBehaviour
             myCamera.transform.localRotation = Quaternion.Euler(rotation.y, 0, 0);
 
         }
+        else
+        {
+            aimMovementVector=Vector3.zero;
+        }
+
+        currentVelocity = Vector3.Lerp(currentVelocity, aimMovementVector, Time.deltaTime * LerpSpeed);
+
+        // set the new current velocity to the rigidbody velocity so it actually moves
+        rb.velocity = currentVelocity;
     }
 }
