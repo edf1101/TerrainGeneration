@@ -175,8 +175,3 @@ MonoBehaviour:
   treeObjects: []
   clearingThresh: 0
   extraTreeHeight: 0
-  objectPercentage: 0.02
-  objectObjects:
-  - {fileID: 7405846476849542632, guid: c6308cb7062fac34e8e50600086b12a1, type: 3}
-  - {fileID: 4680757731160225450, guid: 0fde05fa0f3321942a21896ff4f0856f, type: 3}
-  - {fileID: 8783306491908617939, guid: f02116c209ecd9e488fc4d2cd8996133, type: 3}

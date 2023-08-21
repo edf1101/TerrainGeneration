@@ -8,16 +8,25 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water
+<<<<<<< HEAD
   m_Shader: {fileID: -6465566751694194690, guid: dd97de70edf8a4141bee758a2efe7ff8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
+=======
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _ALPHABLEND_ON
+>>>>>>> parent of 42b65f1 (added better chunk loading)
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -83,6 +92,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+<<<<<<< HEAD
     - _ReflectionTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -107,6 +117,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+=======
+>>>>>>> parent of 42b65f1 (added better chunk loading)
     m_Ints: []
     m_Floats:
     - Boolean_d3c978b0d14a4f66be175a9b89855be0: 1
@@ -154,11 +166,14 @@ Material:
     - _Mode: 2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+<<<<<<< HEAD
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Shininess: 5
     - _Smoothness: 0.3
+=======
+>>>>>>> parent of 42b65f1 (added better chunk loading)
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -176,8 +191,8 @@ Material:
     - _WavesDensity: 10
     - _WorkflowMode: 1
     - _ZWrite: 0
-    - _isInnerAlphaBlendOrColor: 0
     m_Colors:
+<<<<<<< HEAD
     - Color_36218622185947c6a5ae36366d8e21d8: {r: 0.24639553, g: 0.35848108, b: 0.46226418, a: 0.8509804}
     - Color_7D9A58EC: {r: 0.1403524, g: 0.1653288, b: 0.3584906, a: 0}
     - Color_93e06cd551a5449091bcde90b46765a0: {r: 0.93333334, g: 0.61372155, b: 0.49803922, a: 0.33333334}
@@ -205,6 +220,10 @@ Material:
     - _SpecularColor: {r: 0.28261837, g: 0.57352924, b: 0.6886792, a: 1}
     - _WavesColor: {r: 0.63171947, g: 0.69078964, b: 0.7924528, a: 0.25}
     - _WorldLightDir: {r: 0.07, g: 0.1, b: -0.5, a: 0}
+=======
+    - _Color: {r: 0.04298683, g: 0.24211612, b: 0.4339623, a: 0.5686275}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+>>>>>>> parent of 42b65f1 (added better chunk loading)
   m_BuildTextureStacks: []
 --- !u!114 &6356094772071638155
 MonoBehaviour:
