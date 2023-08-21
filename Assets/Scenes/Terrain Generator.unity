@@ -189,7 +189,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dc08bc3d226954062b7f17b16f868a52, type: 2}
   terrainMaterial: {fileID: 2100000, guid: e22e83a93e69b4953b0bddbadd070aca, type: 2}
   debugging: 0
-  seed: 1
+  seed: 3
 --- !u!4 &120618847
 Transform:
   m_ObjectHideFlags: 0

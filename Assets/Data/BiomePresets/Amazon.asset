@@ -18,6 +18,7 @@ MonoBehaviour:
   - Detail
   - Large Rivers
   - Small Hills
+  - Rivers
   tempRange: {x: 0.7, y: 1}
   humRange: {x: 0.8, y: 1}
   debugColour: {r: 0, g: 0.9056604, b: 0.40417165, a: 0}

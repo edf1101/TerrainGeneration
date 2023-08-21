@@ -157,6 +157,47 @@ public class objectPlacement
                 }
             }
         }
+
+
+        // Add in other objects
+
+        for (int i = 0; i < objectPoints.Length/2; i++) // go through each point
+        {
+            // get biome array index at this point and acceptable array index
+            // first need to calculate position in vector form
+            Vector2 orgPoint = objectPoints[i];
+            Vector2 point = orgPoint + new Vector2(biomeMapOffset, biomeMapOffset);
+
+            int index = (int)((int)point.y * biomeMapSize) + (int)point.x;
+
+            int acceptablesIndex = (int)((int)orgPoint.y * tileSize.x) + (int)orgPoint.x;
+            Color acceptable = acceptablePositions[acceptablesIndex];
+
+            biomeDescription myBiome = theBiomes[biomeArray[index]]; // get current biome
+            Vector3 searchPos = new Vector3(orgPoint.x + tileIndex.x * tileSize.x, 100, orgPoint.y + tileSize.y * tileIndex.y);
+
+            // if acceptable object position, and its not in clearing and then have random chance of using position
+            if (acceptable == Color.green && Random.value < myBiome.objectPercentage )
+            {
+                RaycastHit hit; // holds hit data
+
+                if (Physics.Raycast(searchPos, Vector3.down, out hit, 110, onlyTerrainLayerMask))
+                {
+                    Vector3 actualPoint = hit.point;
+
+                    // create object of where this tree is
+                    objectDataLight thisObject = new objectDataLight(actualPoint, myBiome.objectObjects[Random.Range(0, myBiome.objectObjects.Length - 1)].name);
+                    GameObject temp = TerrainManager.doInstanstiate(myBiome.objectObjects[Random.Range(0, myBiome.objectObjects.Length - 1)]);
+                    temp.transform.position = thisObject.objectPosition;
+                    // have extra tree height so we can make forests for example have taller trees
+                    temp.transform.localScale = thisObject.objectScale *1.5f;
+                    temp.transform.localEulerAngles = thisObject.rotation;
+                    temp.transform.parent = objectHolder;
+                }
+            }
+        }
+
+
     }
 
     // lighter version of transform class that holds pos, rot ,scale

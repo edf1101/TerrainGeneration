@@ -15,12 +15,13 @@ MonoBehaviour:
   terrainName: Large Rivers
   heightMult: 1
   frequency: 0.003
-  seedOffset: 5
+  seedOffset: 254
   octaves: 1
   gain: 1
   lacunarity: 1
   doingPlateau: 0
   plateauGap: 20
+  isDune: 0
   behaviourCurve:
     serializedVersion: 2
     m_Curve:
