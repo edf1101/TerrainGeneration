@@ -178,3 +178,14 @@ MonoBehaviour:
   - {fileID: 176278, guid: 3c74caa0496b18d4ba0a1009ebb4c992, type: 3}
   clearingThresh: 0.5
   extraTreeHeight: 0
+  objectPercentage: 0.005
+  objectObjects:
+  - {fileID: 136472, guid: e9ef501c03d9e0f4f8965162fd6bfbba, type: 3}
+  - {fileID: 117896, guid: 2150293d12bfb2448a976624bc72a6f2, type: 3}
+  - {fileID: 124032, guid: 45b8cac9ed2e6a142ae411672ba866f9, type: 3}
+  - {fileID: 116276, guid: 689a36ce1e8152f488b3a0d5fc644805, type: 3}
+  - {fileID: 116276, guid: 689a36ce1e8152f488b3a0d5fc644805, type: 3}
+  - {fileID: 116276, guid: 689a36ce1e8152f488b3a0d5fc644805, type: 3}
+  - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}
+  - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}
+  - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}

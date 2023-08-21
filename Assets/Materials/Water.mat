@@ -8,18 +8,17 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 16516895e8a79bf49a6562c3c3b84cbf, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _ALPHABLEND_ON
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -61,6 +60,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ShoreTex:
+        m_Texture: {fileID: 2800000, guid: 5fbcffe9c2077f04186883cb39275fcc, type: 3}
+        m_Scale: {x: 0.01, y: 0.01}
+        m_Offset: {x: 1.33, y: 0}
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
@@ -74,12 +77,20 @@ Material:
     - _Mode: 2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Shininess: 1.1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _UVSec: 0
     - _ZWrite: 0
+    - _isInnerAlphaBlendOrColor: 0
     m_Colors:
+    - _BaseColor: {r: 0.16286935, g: 0.43142042, b: 0.5660378, a: 0.13333334}
+    - _BumpDirection: {r: 5.73, g: 4.61, b: 1.94, a: 2.73}
+    - _BumpTiling: {r: 1, g: 1, b: -2, a: 3}
     - _Color: {r: 0.04298683, g: 0.24211612, b: 0.4339623, a: 0.5686275}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Foam: {r: 0.37, g: 1.26, b: 1.19, a: 0}
+    - _InvFadeParemeter: {r: 2.83, g: 0.39, b: 0.5, a: 2.74}
+    - _SpecColor: {r: 0.3510591, g: 0.4423309, b: 0.46226418, a: 0.18431373}
   m_BuildTextureStacks: []
