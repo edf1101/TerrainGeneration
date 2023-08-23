@@ -198,3 +198,5 @@ MonoBehaviour:
   - {fileID: 5440707293445505367, guid: 494f6d43e170e9145bc7865d243ee00b, type: 3}
   biomeHumidity: 0.7
   particleCol: {r: 0.11764706, g: 0.41960785, b: 0.7176471, a: 0.6509804}
+  weatherSound: {fileID: 8300000, guid: 6f97e5e8d570a4467a2d93f514e3a136, type: 3}
+  footStepSound: {fileID: 8300000, guid: 3e827fb36e7394e8883ac5808b4cbb1f, type: 3}

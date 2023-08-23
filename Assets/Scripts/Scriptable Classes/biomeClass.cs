@@ -39,8 +39,11 @@ public class biomeDescription : ScriptableObject
     [Header("Weather settings")]
     public float biomeHumidity;
     public Color particleCol;
-    
 
+
+    [Header("Sound Data")]
+    public AudioClip weatherSound;
+    public AudioClip footStepSound;
 }
 
 

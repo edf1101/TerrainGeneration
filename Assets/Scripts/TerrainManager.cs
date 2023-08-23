@@ -8,6 +8,8 @@ public class TerrainManager : MonoBehaviour
     // reference to the player's transform so we can get its location and create
     // nearby tiles
     [SerializeField] private Transform playerTransform;
+    
+
 
     // Transform so we know which gameobject to put the new tiles into 
     // in the heirachy
@@ -104,6 +106,8 @@ public class TerrainManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
+        
         // calculate the current tile we are in
         Vector2 currentTile = new Vector2(Mathf.FloorToInt(playerTransform.position.x / mapSize), Mathf.FloorToInt( playerTransform.position.z / mapSize));
 

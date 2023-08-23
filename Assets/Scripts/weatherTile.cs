@@ -100,6 +100,7 @@ public class weatherTile : MonoBehaviour
 
     }
 
+   
     // this is the setup procedure when it gets instantiates
     public void newLocation(Vector3 pos)
     {
@@ -117,6 +118,8 @@ public class weatherTile : MonoBehaviour
 
         
         TM = TerrainManager.getTileObject(tile).GetComponent<tileManager>();
+
+        
         lastState = !lastState;
 
         // calibrate for first time

@@ -13,6 +13,7 @@ public class weatherManager : MonoBehaviour
     [Header("Transform References")]
     [SerializeField] private Transform playerReference;
     [SerializeField] private Transform sunReference;
+    [SerializeField] private Transform soundTransform;
     private Camera myCam;
 
 
@@ -36,25 +37,55 @@ public class weatherManager : MonoBehaviour
     [Header("Other Settings")]
     [SerializeField] private Vector2 tileSize;
     private Vector2 currentTile;
+    private AudioSource weatherAudioSource;
 
 
 
     private void Start() // called before first frame
     {
         myCam = playerReference.GetComponentInChildren<Camera>(); // set camera reference
+        weatherAudioSource = soundTransform.GetComponentInChildren<AudioSource>();
     }
 
 
-    
+
     private void Update() // called each frame
     {
 
         updatePrecipitation();
         updateTime();
         updateColours();
+        updateSounds();
 
-        
 
+    }
+
+    private float lastUpdateSound; // used to update sound periodically
+
+    private void updateSounds() // update weather sounds
+    {
+        soundTransform.position = playerReference.position + Vector3.up * 1;
+        if (Time.time - lastUpdateSound > 2f)
+        {
+            lastUpdateSound = Time.time;
+           
+
+            currentTile = new Vector2(Mathf.FloorToInt(playerReference.position.x / 100), Mathf.FloorToInt(playerReference.position.z / 100));
+
+            // calculate where I am within that tile
+            Vector2 smallPart1 = new Vector2(playerReference.position.x, playerReference.position.z) - currentTile * 100;
+            smallPart1 = new Vector2((int)smallPart1.x, (int)smallPart1.y);
+
+            // fetch current biome from that data
+            biomeDescription currentBiome = TerrainManager.getTileObject(currentTile).GetComponent<tileManager>().getBiomeAt(smallPart1);
+           
+            // if sounds changed update them
+            if (weatherAudioSource.clip != currentBiome.weatherSound)
+            {
+                weatherAudioSource.clip = currentBiome.weatherSound;
+                
+            }
+        }
     }
 
     // once time calculated update colours accordingly
@@ -90,6 +121,12 @@ public class weatherManager : MonoBehaviour
            
             // is it precipitating where I am? 
             isPrecipitating = TerrainManager.getTileObject(currentTile).GetComponent<tileManager>().getPrecipating(smallTile);
+
+            // update whether weather sound is playing or not
+            if (!isPrecipitating && weatherAudioSource.isPlaying)
+                weatherAudioSource.Stop();
+            if (isPrecipitating && !weatherAudioSource.isPlaying)
+                weatherAudioSource.Play();
         }
 
         // adjust fog density according to whether its precipitating or not
@@ -102,6 +139,7 @@ public class weatherManager : MonoBehaviour
         fogValue = Mathf.Lerp(fogRange.x, fogRange.y, precipitationLerp);
         RenderSettings.fogDensity = fogValue;
 
+        weatherAudioSource.volume =Mathf.Clamp01(precipitationLerp*8); // this will help audio volume move smoothly
     }
 
     // update the time according to a curve
