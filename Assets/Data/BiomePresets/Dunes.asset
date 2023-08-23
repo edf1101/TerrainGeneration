@@ -190,3 +190,5 @@ MonoBehaviour:
   - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}
   - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}
   - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}
+  biomeHumidity: 0
+  particleCol: {r: 0.11764706, g: 0.41960785, b: 0.7176471, a: 0.6509804}

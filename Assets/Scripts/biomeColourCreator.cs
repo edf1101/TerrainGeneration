@@ -236,7 +236,7 @@ public class biomeColourCreator
         rgbBlurComputeHelper RGBlur = new rgbBlurComputeHelper();
 
         // blur the backing map with a 21 radius
-        backings = RGBlur.rbgBlur(backings, 21);
+        backings = RGBlur.rbgBlur(backings, 40);
 
         // combine the new blurred backings with special partials
         Color[] combined =combine(backings, specialPartials);

@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31396fe16dfdf4bab8004e7590423ab0, type: 3}
+  m_Name: Daylight Cycle Preset
+  m_EditorClassIdentifier: 
+  fogColour:
+    serializedVersion: 2
+    key0: {r: 0.0713091, g: 0.080945455, b: 0.106000006, a: 1}
+    key1: {r: 0.14509805, g: 0.16470589, b: 0.21568629, a: 1}
+    key2: {r: 0.654902, g: 0.4901961, b: 0.41176474, a: 0}
+    key3: {r: 0.8588236, g: 0.8588236, b: 0.8588236, a: 0}
+    key4: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 0}
+    key5: {r: 0.5471698, g: 0.36650053, b: 0.19873619, a: 0}
+    key6: {r: 0.14509805, g: 0.16470589, b: 0.21568629, a: 0}
+    key7: {r: 0.058823533, g: 0.06666667, b: 0.09019608, a: 0}
+    ctime0: 8096
+    ctime1: 16191
+    ctime2: 17926
+    ctime3: 20046
+    ctime4: 43947
+    ctime5: 45489
+    ctime6: 47609
+    ctime7: 53970
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  sunColour:
+    serializedVersion: 2
+    key0: {r: 0.075333335, g: 0.0878889, b: 0.113000005, a: 1}
+    key1: {r: 0.12147059, g: 0.13535294, b: 0.177, a: 1}
+    key2: {r: 0.5188679, g: 0.34402055, b: 0.18356177, a: 0}
+    key3: {r: 0.9245283, g: 0.8601519, b: 0.7893378, a: 0}
+    key4: {r: 0.7411765, g: 0.6862745, b: 0.6313726, a: 0}
+    key5: {r: 0.5176471, g: 0.34509805, b: 0.18431373, a: 0}
+    key6: {r: 0.13725491, g: 0.15294118, b: 0.20000002, a: 0}
+    key7: {r: 0.07450981, g: 0.09019608, b: 0.1137255, a: 0}
+    ctime0: 11565
+    ctime1: 15420
+    ctime2: 17540
+    ctime3: 20046
+    ctime4: 42212
+    ctime5: 43947
+    ctime6: 45296
+    ctime7: 49151
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  ambientColour:
+    serializedVersion: 2
+    key0: {r: 0.11333334, g: 0.13222224, b: 0.17, a: 1}
+    key1: {r: 0.14509805, g: 0.16470589, b: 0.21568629, a: 1}
+    key2: {r: 0.6509434, g: 0.5832096, b: 0.46364364, a: 0}
+    key3: {r: 0.773, g: 0.773, b: 0.773, a: 0}
+    key4: {r: 0.61960787, g: 0.61960787, b: 0.61960787, a: 0}
+    key5: {r: 0.6156863, g: 0.5529412, b: 0.43921572, a: 0}
+    key6: {r: 0.14509805, g: 0.16470589, b: 0.21568629, a: 0}
+    key7: {r: 0.11764707, g: 0.13333334, b: 0.16862746, a: 0}
+    ctime0: 7132
+    ctime1: 14649
+    ctime2: 17348
+    ctime3: 20046
+    ctime4: 43176
+    ctime5: 45296
+    ctime6: 47802
+    ctime7: 56476
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2

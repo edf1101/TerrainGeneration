@@ -10,6 +10,7 @@ public class tileManager : MonoBehaviour
     [SerializeField] private RenderTexture debugRT; // for debugging
     [SerializeField] private Texture2D debugT2D; // for debugging
 
+    private static List<biomeDescription> theBiomes;
     static private Material terrainMaterial; // static Material for use in all tiles
 
     // a setter for the terrain material
@@ -22,6 +23,8 @@ public class tileManager : MonoBehaviour
 
     private biomeColourCreator BCC;
     private objectPlacement OP;
+
+
 
     public void createTile(Vector2 _tilePos)
     { 
@@ -42,7 +45,7 @@ public class tileManager : MonoBehaviour
 
         // apply heights to the mesh
         Mesh tileMesh= BDC.ApplyHeights();
-
+        biomeArray = BDC.getBiomeIndexes();
         
         
         // create additional data points for height and gradient around outside of the mesh
@@ -53,7 +56,7 @@ public class tileManager : MonoBehaviour
         BCC = new biomeColourCreator();
         // set important data made by BiomeDataCreator class
         BCC.setAdditionalPoints(addPoints); // add in additional points
-        BCC.setBiomeIndexes(BDC.getBiomeIndexes()); // add in array of which point is which biome
+        BCC.setBiomeIndexes(biomeArray); // add in array of which point is which biome
 
         // add colour to the mesh using vertex painting
         tileMesh= BCC.colouriseMesh(tileMesh);
@@ -77,5 +80,136 @@ public class tileManager : MonoBehaviour
         OP.createObjects();
         debugRT = BDC.getBiomeMap();
 
+        setupWeather();
+
+    }
+
+
+    private int[] biomeArray; // hold indexes of biomes in this tile
+
+
+    // getter for finding the biome at a specific place in this tile
+    public biomeDescription getBiomeAt(Vector2 pos)
+    {
+
+        // biome Array is different size to the tile so calculate offsets here
+        int arrWidth = (int)Mathf.Sqrt(biomeArray.Length);
+        int offset =(int)( 0.5f * (arrWidth - 100));
+
+        // index of biome in the array
+        int biomeIndx = (((int)pos.y + offset) * arrWidth) + (int)pos.x + offset;
+        return theBiomes[biomeArray[biomeIndx]]; // return biome
+
+    }
+
+    // setter for setting private list of biomes in world
+    public static void setBiomes(List<biomeDescription> _biomes)
+    {
+
+        theBiomes = _biomes;
+    }
+
+
+    private static GameObject weatherPrebab; // prefab for weather tile
+
+    public static void setWeatherPrebab(GameObject _wp) // setter for above 
+    {
+        weatherPrebab = _wp;
+    }
+
+
+    private GameObject weatherTileHolder; // transform holds the weather tiles in heirachy
+
+    // array to reference all weather tiles
+    private weatherTile[] weatherTiles = new weatherTile[100]; 
+
+
+    // set up the weather tiles on start
+    private void setupWeather()
+    {
+
+        int weatherTileSize = 10; // size of the particle system
+
+        // create the weather tile holder to be organised
+        weatherTileHolder = new GameObject();
+        weatherTileHolder.name = "Weather Holder";
+        weatherTileHolder.transform.position= new Vector3( tilePosition.x * 100, 0, tilePosition.y * 100);
+        weatherTileHolder.transform.parent = transform;
+
+        int count = 0; // keep a count so we can easily put the 2d items in a 1d array
+        for(int x = 0; x < 100; x += weatherTileSize)
+        {
+            for (int y = 0; y < 100; y += weatherTileSize)
+            {
+
+                GameObject temp = Instantiate(weatherPrebab); //instantiate prefab
+                temp.transform.parent = weatherTileHolder.transform; // assign to weatherTileHolder heirachy
+
+                //calculate and set postion for it
+                Vector3 pos = new Vector3(x + tilePosition.x * 100, 60, y + tilePosition.y * 100);
+                temp.transform.position = pos;
+
+                // initialise its script
+                temp.GetComponent<weatherTile>().newLocation(pos);
+                weatherTiles[count]=temp.GetComponent<weatherTile>();
+
+                count++;
+            }
+
+        }
+    }
+
+
+    // functions to return whether its raining/ snowing or not
+
+    // this one returns the average for the whole tile
+    public bool getPrecipating()
+    {
+        float prec = 0;
+        for(int i = 0; i < weatherTiles.Length; i++) // go through each weatherTile
+        {
+            prec += (weatherTiles[i].getState() ? 1 : 0);
+
+        }
+        prec /= (float)weatherTiles.Length; // average if its raining or not
+
+        return prec>0.5f;
+    }
+
+    // get whether its raining in exact part of tile
+    public bool getPrecipating(Vector2 pos) 
+    {
+        int ind = ((int)pos.y) + (int)(pos.x / 10);
+        return weatherTiles[ind].getState();
+
+    }
+
+    private static Transform playerTransform; // reference to player transform
+
+    public static void setPlayerTransform(Transform _p) // setter for above
+    {
+        playerTransform = _p;
+    }
+
+    private float lastCheck; // so we can check efficiently every n sec
+
+    private void Update()
+    {
+        // check each 2s or on start as long as weatherTiles have been made
+        if ((lastCheck<2 || Time.time - lastCheck > 2) && weatherTileHolder != null)
+        {
+            lastCheck = Time.time;
+
+            // This part is renderDist essentailly particle systems can be
+            // expensive so we only want them when theyre near
+
+            // check if the tile is within range then enable/ disable
+            if (Vector3.Distance(playerTransform.position, transform.position + new Vector3(50, 15, 50)) < 200)
+            {
+                weatherTileHolder.SetActive(true);
+            }
+            else
+                weatherTileHolder.SetActive(false);
+        }
     }
 }

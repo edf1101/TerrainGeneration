@@ -17,9 +17,9 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
-    [Header("Camera reference")]
+    [Header("Transform references")]
     [SerializeField] private Transform myCamera;
-
+    [SerializeField] private Transform myTorch;
     private Rigidbody rb; // reference to the rigidbody component
 
     [Header("Movement parameters")]
@@ -33,6 +33,8 @@ public class playerController : MonoBehaviour
 
     private bool mouseLocked; // is the mouse locked
 
+    private bool torchOut; // whether torch in use or not
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -44,9 +46,32 @@ public class playerController : MonoBehaviour
     private Vector3 currentVelocity;
     private Vector3 aimMovementVector;
 
+    private Vector2 currentTile; // current tile location
+
+    private float lastCheckedBiome; // used for updating biome location each n seconds
+    private biomeDescription currentBiome; // holds current biomes
+
+
     // Update is called once per frame
     private void Update()
     {
+
+        if (Time.time - lastCheckedBiome > 2) // if its been 2s since last checked
+        {
+            lastCheckedBiome = Time.time;
+
+            // calculate current tile
+            currentTile = new Vector2(Mathf.FloorToInt(transform.position.x / 100), Mathf.FloorToInt(transform.position.z / 100));
+
+            // calculate where I am within that tile
+            Vector2 smallPart = new Vector2(transform.position.x, transform.position.z) - currentTile * 100;
+            smallPart = new Vector2((int)smallPart.x, (int)smallPart.y);
+
+            // fetch current biome from that data
+            currentBiome= TerrainManager.getTileObject(currentTile).GetComponent<tileManager>().getBiomeAt(smallPart);
+            
+
+        }
 
         // setting cursor lock state
         if (mouseLocked)
@@ -67,6 +92,16 @@ public class playerController : MonoBehaviour
         // only move/look around if mouse is locked so user is focused
         if (mouseLocked)
         {
+
+            // toggle torch being on or off
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                torchOut = !torchOut;
+                myTorch.gameObject.SetActive(torchOut);
+            }
+
+
+
             // scroll wheel can change the motion speed
             motionSpeed += Input.GetAxis("Mouse ScrollWheel") * cursorSpeed;
             motionSpeed = Mathf.Clamp(motionSpeed, 2, 70); // clamp the speed 

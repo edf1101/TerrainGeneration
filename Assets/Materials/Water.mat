@@ -8,17 +8,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water
-  m_Shader: {fileID: 4800000, guid: 16516895e8a79bf49a6562c3c3b84cbf, type: 3}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords:
+  m_ValidKeywords:
   - _ALPHABLEND_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -88,9 +89,11 @@ Material:
     - _BaseColor: {r: 0.08139017, g: 0.33681768, b: 0.5566038, a: 0.3254902}
     - _BumpDirection: {r: 5.73, g: 4.61, b: 1.94, a: 2.73}
     - _BumpTiling: {r: 1, g: 1, b: -2, a: 3}
-    - _Color: {r: 0.04298683, g: 0.24211612, b: 0.4339623, a: 0.5686275}
+    - _Color: {r: 0.04298683, g: 0.24211612, b: 0.4339623, a: 0.13333334}
+    - _DeepColor: {r: 0.40183342, g: 0.5032874, b: 0.6603774, a: 0.8666667}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Foam: {r: 0.37, g: 1.26, b: 1.19, a: 0}
     - _InvFadeParemeter: {r: 9.5, g: 0.39, b: 0.5, a: 2.74}
+    - _ShallowColor: {r: 0.58708614, g: 0.6848481, b: 0.745283, a: 0.33333334}
     - _SpecColor: {r: 0.14667143, g: 0.16963682, b: 0.3018868, a: 0.6745098}
   m_BuildTextureStacks: []

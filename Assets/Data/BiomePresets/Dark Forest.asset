@@ -193,3 +193,5 @@ MonoBehaviour:
   - {fileID: 8783306491908617939, guid: f02116c209ecd9e488fc4d2cd8996133, type: 3}
   - {fileID: 178436, guid: 587331bb58ede6149bd7d31473a36202, type: 3}
   - {fileID: 3356751432538110193, guid: ffbddc4ef9676cc419e81e06aaa836d8, type: 3}
+  biomeHumidity: 0.65
+  particleCol: {r: 0.11764706, g: 0.41960785, b: 0.7176471, a: 0.6509804}

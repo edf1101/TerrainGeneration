@@ -36,6 +36,7 @@ public class BiomeComputeHelper
 
     public void createBiomes() // will create the biomes
     {
+       // Debug.Log(biomesIn.Count);
         // creates the return texture for the colour map
         colourMap = new RenderTexture((int)mapSize.x, (int)mapSize.y, 24);
         colourMap.enableRandomWrite = true;

@@ -23,7 +23,7 @@ public class TerrainManager : MonoBehaviour
 
     [Header("Biome/Noise References")]
     // Also reference each biome Type
-    [SerializeField] private List<biomeDescription> theBiomes;
+    [SerializeField] private  List<biomeDescription> theBiomes;
 
     // And reference each noise type required
     [SerializeField] private List<terrainNoisePreset> noisePresets;
@@ -32,6 +32,7 @@ public class TerrainManager : MonoBehaviour
     [Header("Other Settings")]
     // The terrain needs a specific material that uses vertex colours
     [SerializeField] private Material terrainMaterial;
+    [SerializeField] private GameObject weatherPrefab;
     [SerializeField] private bool debugging; // do we debug?
     [SerializeField] private int seed; // seed for different maps
     [SerializeField] private bool randomiseSeed;
@@ -49,7 +50,7 @@ public class TerrainManager : MonoBehaviour
 
     // This dictionary holds a reference to each tile by its index
     // useful so we can find them all quickly at a later point
-    private Dictionary<Vector2, GameObject> tileReferences = new Dictionary<Vector2, GameObject>();
+    private static Dictionary<Vector2, GameObject> tileReferences = new Dictionary<Vector2, GameObject>();
 
     [SerializeField] private float renderDistance=1; // render dist outside of current tile
 
@@ -63,31 +64,42 @@ public class TerrainManager : MonoBehaviour
     {
         if (randomiseSeed)
             seed = Random.Range(0, 100);
-        //set up rgb blur shader
+        // set up rgb blur shader
         rgbBlurComputeHelper.setShader(rgbBlurShader);
 
-        //Set up fillGaps shader
+        // Set up fillGaps shader
         FillGapsComputeHelper.setShader(FillGapsShader);
 
         // set the noise presets for the static class firstly
         terrainNoise.setNoisePresets(noisePresets);
+
+        tileManager.setBiomes(theBiomes);
 
         // set the default shaders + biomes statically for biomeDataCreatorClass
         BiomeDataCreator.setShaders(biomeComputeShader, biomeSeperatorShader, BBComputeShader);
         BiomeDataCreator.setBiomes(theBiomes);
         BiomeDataCreator.setSeed(seed);
         terrainNoise.setSeed(seed);
-        //set the biomes for the colour script too
+        // set the biomes for the colour script too
         biomeColourCreator.setBiomes(theBiomes);
 
-        //set the terrain material statically
+        // set the terrain material statically
         tileManager.setTerrainMaterial(terrainMaterial);
 
-        //set up object placement class
+        // set up object placement class
         objectPlacement.setBiomes(theBiomes);
         objectPlacement.createPoissonPoints();
-    }
 
+
+        // set up stuff for weather
+        tileManager.setWeatherPrebab(weatherPrefab);
+        tileManager.setPlayerTransform(playerTransform);
+
+      
+    }
+    
+    // this gets set to true after first tiles generated, useful to see if we've started
+    private bool done; 
 
     // Update is called once per frame
     private void Update()
@@ -96,10 +108,10 @@ public class TerrainManager : MonoBehaviour
         Vector2 currentTile = new Vector2(Mathf.FloorToInt(playerTransform.position.x / mapSize), Mathf.FloorToInt( playerTransform.position.z / mapSize));
 
         // if the tile has changed recently or if its (0,0) as this doesnt register on start
-        if (currentTile != lastTile || currentTile== Vector2.zero) 
+        if (currentTile != lastTile || (currentTile== Vector2.zero&& !done)) 
         {
             lastTile = currentTile; // update what tile im on
-            
+            done = true;
             for (int x = -5; x <= 5; x++)
             {
                 for (int y = -5; y <= 5; y++)
@@ -146,11 +158,13 @@ public class TerrainManager : MonoBehaviour
         // little debugging thing to show when creatign new tile from scratch
         if (debugging) 
             Debug.Log("Generating Tile: " + _mapPosition);
+        tilesMade.Add(_mapPosition, true);
 
         // create a new gameobject for the new tile
         GameObject newTile = new GameObject();
+        tileReferences.Add(_mapPosition, newTile);
 
-        string tileName= "Tile: (" + _mapPosition.x.ToString() + "," + _mapPosition.y.ToString() + ")";
+        string tileName = "Tile: (" + _mapPosition.x.ToString() + "," + _mapPosition.y.ToString() + ")";
         newTile.name = tileName; // set name of new tile so we can understand easily
 
         newTile.transform.parent = tileHolder; // assign its parent
@@ -162,12 +176,20 @@ public class TerrainManager : MonoBehaviour
         //add then run tileManager component
         newTile.AddComponent<tileManager>();
         newTile.GetComponent<tileManager>().createTile(_mapPosition);
-        tileReferences.Add(_mapPosition, newTile);
-        tilesMade.Add(_mapPosition, true);
+        
     }
+
+    // Instantiates Gameobjects here because non-monobehaviour classes cant do it there
     public static GameObject doInstanstiate(GameObject _g)
     {
         return Instantiate(_g);
     }
+
+    // return the tile GameObject at a certain index
+    public static GameObject getTileObject(Vector2 _key)
+    {
+        return tileReferences[_key];
+    }
+    
 
 }

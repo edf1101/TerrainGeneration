@@ -13,6 +13,7 @@ public class biomeDescription : ScriptableObject
     public int id;
     public string[] terrainGenTypes;
 
+
     [Header("Required Conditions")]
     public Vector2 tempRange;
     public Vector2 humRange;
@@ -34,6 +35,10 @@ public class biomeDescription : ScriptableObject
     [Header("Object settings")]
     public float objectPercentage;
     public GameObject[] objectObjects;
+
+    [Header("Weather settings")]
+    public float biomeHumidity;
+    public Color particleCol;
     
 
 }
