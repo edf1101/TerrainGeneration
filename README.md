@@ -4,6 +4,16 @@
 
 **The second version of my Terrain Generation project, *1st version used in Ecosystem Simulation NEA***
 
+### Controls
+
+Apologies this isn't hugely User friendly the playable build is just a demonstration of the terrain generation project. 
+
+Move around: **WASD Space/Shift**
+Toggle between flying and walking: **Double tap Space**
+Exit Game: **Double tap Escape**
+Toggle torch on or off: **T**
+
+
 ### What makes this different?
 I couldnt find any large scale terrain generation projects / tutorials that were low poly and also had advanced capabilities like biomes etc - Hence I built this.
 
