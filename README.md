@@ -1,8 +1,5 @@
 # Terrain Generator V2
 
-<img width="1512" alt="Screenshot 2023-08-21 at 16 19 11" src="https://github.com/edf1101/terrain-generation-2/assets/96292907/c0941f61-3a08-478c-abfc-f5406504387f">
-<img width="1507" alt="Screenshot 2023-08-21 at 16 20 08" src="https://github.com/edf1101/terrain-generation-2/assets/96292907/64b54ffc-e985-479b-a322-3f39041830a6">
-<img width="1504" alt="Screenshot 2023-08-21 at 16 20 26" src="https://github.com/edf1101/terrain-generation-2/assets/96292907/203d752e-e15c-4459-a672-bd1c567c7ce9">
 
 
 **The second version of my Terrain Generation project, *1st version used in Ecosystem Simulation NEA***
@@ -19,3 +16,8 @@ I couldnt find any large scale terrain generation projects / tutorials that were
 ### Future
 I plan to implement this into a 2nd version of my ecosystem simulation though slightly less focused on evolution and instead just having infinite terrain with animals populating it.
 
+### Examples
+<img width="1507" alt="Screenshot 2023-08-21 at 16 20 08" src="https://github.com/edf1101/terrain-generation-2/assets/96292907/2bbf92ca-4cac-463b-ac29-5b0fd18f74b9">
+<img width="1489" alt="Screenshot 2023-08-24 at 17 06 47" src="https://github.com/edf1101/terrain-generation-2/assets/96292907/b7420ec3-d3d8-4759-b023-9c2ea9384216">
+<img width="1512" alt="Screenshot 2023-08-21 at 16 19 11" src="https://github.com/edf1101/terrain-generation-2/assets/96292907/1c9cd88b-b223-4c01-b3dd-74fe48b08f28">
+<img width="1489" alt="Screenshot 2023-08-24 at 17 06 47" src="https://github.com/edf1101/terrain-generation-2/assets/96292907/656e7821-a912-4315-85dc-528f7521d6f7">
