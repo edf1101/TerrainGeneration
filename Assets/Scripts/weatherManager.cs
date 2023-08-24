@@ -64,6 +64,8 @@ public class weatherManager : MonoBehaviour
 
     private void updateSounds() // update weather sounds
     {
+        if (!weatherAudioSource.isPlaying)
+            weatherAudioSource.Play();
         soundTransform.position = playerReference.position + Vector3.up * 1;
         if (Time.time - lastUpdateSound > 2f)
         {
@@ -83,7 +85,8 @@ public class weatherManager : MonoBehaviour
             if (weatherAudioSource.clip != currentBiome.weatherSound)
             {
                 weatherAudioSource.clip = currentBiome.weatherSound;
-                
+                weatherAudioSource.Play();
+
             }
         }
     }
@@ -123,10 +126,7 @@ public class weatherManager : MonoBehaviour
             isPrecipitating = TerrainManager.getTileObject(currentTile).GetComponent<tileManager>().getPrecipating(smallTile);
 
             // update whether weather sound is playing or not
-            if (!isPrecipitating && weatherAudioSource.isPlaying)
-                weatherAudioSource.Stop();
-            if (isPrecipitating && !weatherAudioSource.isPlaying)
-                weatherAudioSource.Play();
+           
         }
 
         // adjust fog density according to whether its precipitating or not

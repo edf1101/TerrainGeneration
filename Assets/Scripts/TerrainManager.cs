@@ -39,6 +39,8 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] private int seed; // seed for different maps
     [SerializeField] private bool randomiseSeed;
     [SerializeField] private static int terrainLayer;
+    [SerializeField] private AudioClip waterSound; // sound of running water;
+
 
     // This dictionary holds whether a tile is made for each vector 2
     // no point in the bool really as if the key exists it will be true
@@ -96,7 +98,7 @@ public class TerrainManager : MonoBehaviour
         // set up stuff for weather
         tileManager.setWeatherPrebab(weatherPrefab);
         tileManager.setPlayerTransform(playerTransform);
-
+        weatherTile.setWaterSound(waterSound);
       
     }
     

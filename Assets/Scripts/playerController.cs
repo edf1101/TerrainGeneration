@@ -28,6 +28,7 @@ public class playerController : MonoBehaviour
     [SerializeField] private float motionSpeed; // how fast it moves m/s
     [SerializeField] private float lookSpeed; // how sensitive the mouse is
     [SerializeField] private float cursorSpeed; // scroll speed (raising motionSpeed)
+    [SerializeField] private bool flying; // whether fly  mode or walk mode
 
     private Vector3 rotation; // values for camera rotation
 
@@ -40,6 +41,11 @@ public class playerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>(); // set the rigidbody variable
         mouseLocked = true; // mouse locked initially
+        myAnimator = GetComponentInChildren<Animator>();
+        footStepAudioSource = GetComponent<AudioSource>();
+
+        motionSpeed = 5; // speed for walking
+        
     }
 
     // store our current velocity so we dont have to keep getting it from rigidbody
@@ -51,12 +57,46 @@ public class playerController : MonoBehaviour
     private float lastCheckedBiome; // used for updating biome location each n seconds
     private biomeDescription currentBiome; // holds current biomes
 
+    private Animator myAnimator; // reference to the animator for the player
+    private bool footStepReady; // this bool helps the footstep only get registered once per animation loop
+
+    private AudioSource footStepAudioSource; // reference to the audio source for footsteps
+    private bool moving; // whether player moving or not 
+    
+
+    void updateAnimations() // this used to sort all animation stuff
+    {
+        float animatorTime = myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime%myAnimator.GetCurrentAnimatorStateInfo(0).length  ;
+        myAnimator.SetBool("moving", moving);
+        if (animatorTime > 0.9f && footStepReady)   
+        {
+            footStepReady = false;
+        }
+        
+        if (animatorTime<0.1f && !footStepReady)
+        {
+            footStepReady = true;
+            // code for on footstep here
+            if (currentBiome != null && moving && !flying)
+            {
+                // checks we can actually look at biome else we may have errors
+                footStepAudioSource.Play();
+                  
+            }
+          
+
+        }
+        
+    }
+
 
     // Update is called once per frame
     private void Update()
     {
 
-        if (Time.time - lastCheckedBiome > 2) // if its been 2s since last checked
+        updateAnimations();
+
+        if (Time.time - lastCheckedBiome > 2    ) // if its been 2s since last checked
         {
             lastCheckedBiome = Time.time;
 
@@ -69,7 +109,7 @@ public class playerController : MonoBehaviour
 
             // fetch current biome from that data
             currentBiome= TerrainManager.getTileObject(currentTile).GetComponent<tileManager>().getBiomeAt(smallPart);
-            
+            footStepAudioSource.clip = currentBiome.footStepSound;
 
         }
 
@@ -103,8 +143,16 @@ public class playerController : MonoBehaviour
 
 
             // scroll wheel can change the motion speed
-            motionSpeed += Input.GetAxis("Mouse ScrollWheel") * cursorSpeed;
-            motionSpeed = Mathf.Clamp(motionSpeed, 2, 70); // clamp the speed 
+            if (flying)
+            {
+                motionSpeed += Input.GetAxis("Mouse ScrollWheel") * cursorSpeed;
+                motionSpeed = Mathf.Clamp(motionSpeed, 2, 70); // clamp the speed 
+
+            }
+            else
+            {
+                motionSpeed = 5.5f;
+            }
 
 
             /*  create new vectors for transform.forward / transform.right
@@ -116,12 +164,13 @@ public class playerController : MonoBehaviour
 
             // We then move in the new forward direction * forward input then
             // in right direction * right input then add Vector3.up * depth (up/down)
-             aimMovementVector = (newF * Input.GetAxis("Vertical") + newR * Input.GetAxis("Horizontal") + Vector3.up * Input.GetAxis("Depth")).normalized * 1 * motionSpeed;
+            aimMovementVector = (newF * Input.GetAxis("Vertical") + newR * Input.GetAxis("Horizontal") + Vector3.up * (flying?1:0)*Input.GetAxis("Depth")).normalized * 1 * motionSpeed;
 
             // current veclocity should be an interpolation between current veclocity
             // and aim velocity this should make it a smooth velocity
-            currentVelocity = Vector3.Lerp(currentVelocity, aimMovementVector, Time.deltaTime * LerpSpeed);
-
+            currentVelocity = (!flying?aimMovementVector:Vector3.Lerp(currentVelocity, aimMovementVector, Time.deltaTime * LerpSpeed));
+            if(!flying)
+            currentVelocity.y = rb.velocity.y-9.81f*Time.deltaTime*2;
             // set the new current velocity to the rigidbody velocity so it actually moves
             rb.velocity = currentVelocity;
 
@@ -137,6 +186,8 @@ public class playerController : MonoBehaviour
             transform.localEulerAngles = new Vector3(0, rotation.x, 0);
             // the camera should tilt up/ down though
             myCamera.transform.localRotation = Quaternion.Euler(rotation.y, 0, 0);
+
+            moving = (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
 
         }
         else

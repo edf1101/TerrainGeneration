@@ -100,7 +100,14 @@ public class weatherTile : MonoBehaviour
 
     }
 
-   
+    private bool hasWater; // wheteher water in small tile
+    private static AudioClip waterSound;// sound of water running
+
+    public static void setWaterSound(AudioClip _sound)
+    {
+        waterSound = _sound;
+    }
+
     // this is the setup procedure when it gets instantiates
     public void newLocation(Vector3 pos)
     {
@@ -124,6 +131,53 @@ public class weatherTile : MonoBehaviour
 
         // calibrate for first time
         calibrate();
+
+        // do a check for water below
+        bool breaking=false;
+        Vector3 waterLocation=Vector3.zero  ;
+        for(int dx = 3; dx < 8; dx += 2)
+        {
+
+            for (int dy = 3; dy < 8; dy += 2)
+            {
+                Vector3 rayPosition = new Vector3(tile.x * 100 + offset.x + dx, 70, tile.y * 100 + offset.y + dy);
+             
+                RaycastHit hit;
+
+                if (Physics.Raycast(rayPosition,Vector3.down, out hit, 100))
+                {
+                    if(hit.collider.gameObject.layer==4) // 4 is water layer
+                    {
+                        breaking = true;
+                        hasWater = true;
+                        waterLocation = hit.point;
+                        break;
+                    }
+                }
+            }
+            if (breaking) // this means we can break both loops
+                break;
+
+        }
+
+        if (hasWater)
+        {
+
+            // were not using prefabs so set up the audio source from scratch
+            GameObject waterSource = new GameObject();
+            waterSource.name = "Water source";
+            waterSource.transform.parent = transform;
+            waterSource.transform.position = waterLocation;
+            waterSource.AddComponent<AudioSource>();
+            waterSource.GetComponent<AudioSource>().loop = true;
+            waterSource.GetComponent<AudioSource>().clip = waterSound;
+            waterSource.GetComponent<AudioSource>().Play();
+            waterSource.GetComponent<AudioSource>().volume=0.3f;
+            waterSource.GetComponent<AudioSource>().maxDistance = 12;
+            waterSource.GetComponent<AudioSource>().spatialBlend = 1;
+            waterSource.GetComponent<AudioSource>().spread = 0.8f;
+
+        }
         
     }
     
