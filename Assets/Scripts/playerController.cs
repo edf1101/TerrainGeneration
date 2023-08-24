@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /*
  * By www.github.com/edf1101
  * Simple Player controller script that can just fly around a scene nicely
@@ -62,7 +61,10 @@ public class playerController : MonoBehaviour
 
     private AudioSource footStepAudioSource; // reference to the audio source for footsteps
     private bool moving; // whether player moving or not 
-    
+
+    private float lastJump; // used to detect double jumps
+
+    private float lastEsc; // used to detect double escape
 
     void updateAnimations() // this used to sort all animation stuff
     {
@@ -93,6 +95,26 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (Time.time - lastJump < 0.8f)
+            { // been a double jump
+                flying = !flying;
+            }
+
+            lastJump = Time.time;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Time.time - lastEsc < 0.8f)
+            { // been a double escape
+                Application.Quit();
+            }
+
+            lastEsc = Time.time;
+        }
 
         updateAnimations();
 

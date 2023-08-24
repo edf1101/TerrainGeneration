@@ -265,7 +265,7 @@ MonoBehaviour:
   weatherPrefab: {fileID: 4052911194276988288, guid: 785598f061475431f8a734e4d2ce59ec, type: 3}
   debugging: 0
   seed: 100
-  randomiseSeed: 0
+  randomiseSeed: 1
   waterSound: {fileID: 8300000, guid: b7c237a8b143145bdac13079a0083d8d, type: 3}
   renderDistance: 2.5
 --- !u!4 &120618847
