@@ -8,13 +8,10 @@
 
 Apologies this isn't hugely User friendly the playable build is just a demonstration of the terrain generation project. 
 
-Move around: **WASD Space/Shift**
-
-Toggle between flying and walking: **Double tap Space**
-
-Exit Game: **Double tap Escape**
-
-Toggle torch on or off: **T**
+Move around: **WASD Space/Shift**  
+Toggle between flying and walking: **Double tap Space**  
+Exit Game: **Double tap Escape**  
+Toggle torch on or off: **T**  
 
 
 ### What makes this different?
