@@ -13,12 +13,9 @@ I couldnt find any large scale terrain generation projects / tutorials that were
 ### New Features
 - Infinite Terrain
 - Better biome generation + Better variety of heightmaps for different biomes
+- Uses unity URP to make it look better
+- Much better written
 
 ### Future
 I plan to implement this into a 2nd version of my ecosystem simulation though slightly less focused on evolution and instead just having infinite terrain with animals populating it.
 
-### Credits / References
-- https://github.com/wo80/Triangle.NET
-- https://github.com/Auburn/FastNoiseLite
-- https://gist.github.com/a3geek/8532817159b77c727040cf67c92af322
-- https://github.com/Chaosed0/DelaunayUnity/
