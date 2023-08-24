@@ -63,7 +63,7 @@ public class weatherTile : MonoBehaviour
         avgCol = TM.getBiomeAt(offset).particleCol;
 
         // make it dark if nighttime so doesnt show up poorly
-        if (weatherManager.getTime() > 16 || weatherManager.getTime() < 5)
+        if (weatherManager.getTime() > 16 || weatherManager.getTime() < 6.5f)
             avgCol = new Color(0.1f, 0.1f, 0.15f, 0.5f);
 
         // get state and last state so we know if it changes
