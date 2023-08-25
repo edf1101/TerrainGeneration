@@ -143,7 +143,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   normalColour:
     serializedVersion: 2
-    key0: {r: 0.764151, g: 0.6078443, b: 0.24150053, a: 1}
+    key0: {r: 0.6698113, g: 0.6080469, b: 0.46444464, a: 1}
     key1: {r: 1, g: 0.8745099, b: 0.5803922, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
